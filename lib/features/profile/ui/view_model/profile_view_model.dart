@@ -11,7 +11,6 @@ import '/extensions/build_context_extension.dart';
 import '/extensions/profile_extension.dart';
 import '/extensions/string_extension.dart';
 import '../../../../constants/constants.dart';
-import '../../../../features/authentication/ui/view_model/authentication_view_model.dart';
 import '../../../../features/profile/model/profile.dart';
 import '../../../../features/profile/repository/profile_repository.dart';
 import '../../../../features/profile/ui/state/profile_state.dart';
@@ -38,17 +37,16 @@ class ProfileViewModel extends _$ProfileViewModel {
       final currentProfile = state.value?.profile;
 
       final updatedProfile = currentProfile?.copyWith(
-        email: email ?? currentProfile.email,
-        name: name ?? currentProfile.name,
-        avatar: newAvatarPath ?? currentProfile.avatar,
-      ) ??
+            email: email ?? currentProfile.email,
+            name: name ?? currentProfile.name,
+            avatar: newAvatarPath ?? currentProfile.avatar,
+          ) ??
           Profile(
             email: email,
             name: name,
             avatar: newAvatarPath,
           );
-      debugPrint(
-          '${Constants.tag} [ProfileViewModel.updateProfile] $updatedProfile');
+      debugPrint('${Constants.tag} [ProfileViewModel.updateProfile] $updatedProfile');
 
       await ref.read(profileRepositoryProvider).update(updatedProfile);
       state = AsyncData(ProfileState(profile: updatedProfile));
@@ -67,15 +65,15 @@ class ProfileViewModel extends _$ProfileViewModel {
     }
   }
 
-  Future<void> signOut() async {
-    state = const AsyncValue.loading();
-    try {
-      await ref.read(authenticationViewModelProvider.notifier).signOut();
-      state = AsyncData(ProfileState(profile: null));
-    } catch (error) {
-      state = AsyncError(error, StackTrace.current);
-    }
-  }
+  // Future<void> signOut() async {
+  //   state = const AsyncValue.loading();
+  //   try {
+  //     await ref.read(authenticationViewModelProvider.notifier).signOut();
+  //     state = AsyncData(ProfileState(profile: null));
+  //   } catch (error) {
+  //     state = AsyncError(error, StackTrace.current);
+  //   }
+  // }
 
   Future<bool> isShowPremium() async {
     if (state.value?.profile?.isPremium == true) return false;

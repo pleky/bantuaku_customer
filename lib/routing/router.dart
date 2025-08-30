@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm_riverpod/features/authentication/ui/signup_screen.dart';
+import 'package:flutter_mvvm_riverpod/features/home/ui/home_screen.dart';
+import 'package:flutter_mvvm_riverpod/features/job/ui/create_job_screen.dart';
+import 'package:flutter_mvvm_riverpod/features/job/ui/find_worker_screen.dart';
+import 'package:flutter_mvvm_riverpod/features/worker/ui/workers_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/authentication/ui/otp_screen.dart';
@@ -73,7 +78,7 @@ class SlideRouteTransition extends CustomTransitionPage<void> {
 }
 
 final GoRouter router = GoRouter(
-  initialLocation: Routes.splash,
+  initialLocation: Routes.workers,
   routes: [
     GoRoute(
       path: Routes.splash,
@@ -87,6 +92,7 @@ final GoRouter router = GoRouter(
       path: Routes.login,
       pageBuilder: (context, state) => state.slidePage(const SignInScreen()),
     ),
+    GoRoute(path: Routes.signup, pageBuilder: (context, state) => state.slidePage(const SignupScreen())),
     GoRoute(
         path: Routes.otp,
         pageBuilder: (context, state) {
@@ -100,8 +106,7 @@ final GoRouter router = GoRouter(
         }),
     GoRoute(
       path: Routes.onboarding,
-      pageBuilder: (context, state) =>
-          state.slidePage(const OnboardingScreen()),
+      pageBuilder: (context, state) => state.slidePage(const OnboardingScreen()),
     ),
     GoRoute(
       path: Routes.main,
@@ -116,8 +121,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: Routes.appearances,
-      pageBuilder: (context, state) =>
-          state.slidePage(const AppearancesScreen()),
+      pageBuilder: (context, state) => state.slidePage(const AppearancesScreen()),
     ),
     GoRoute(
       path: Routes.languages,
@@ -130,5 +134,26 @@ final GoRouter router = GoRouter(
         direction: SlideDirection.up,
       ),
     ),
+    GoRoute(
+      path: Routes.home,
+      pageBuilder: (context, state) => state.slidePage(const HomeScreen()),
+    ),
+    GoRoute(
+      path: Routes.createJob,
+      pageBuilder: (context, state) {
+        final isSkillActive = state.extra as bool? ?? false;
+        return state.slidePage(CreateJobScreen(isSkillActive: isSkillActive));
+      },
+    ),
+    GoRoute(
+      name: Routes.findWorker,
+      path: Routes.findWorker,
+      pageBuilder: (context, state) => state.slidePage(const FindWorkerScreen()),
+    ),
+    GoRoute(
+      name: Routes.workers,
+      path: Routes.workers,
+      pageBuilder: (context, state) => state.slidePage(const WorkersScreen()),
+    )
   ],
 );

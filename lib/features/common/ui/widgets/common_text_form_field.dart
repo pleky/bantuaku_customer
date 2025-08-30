@@ -9,6 +9,8 @@ class CommonTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final String? errorText;
   final bool isPassword;
+  final TextInputType? keyboardType;
+  final int? maxLines;
 
   const CommonTextFormField({
     super.key,
@@ -17,6 +19,8 @@ class CommonTextFormField extends StatefulWidget {
     this.validator,
     this.errorText,
     this.isPassword = false,
+    this.keyboardType = TextInputType.text,
+    this.maxLines = 1,
   });
 
   @override
@@ -48,6 +52,8 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
       controller: widget.controller,
       validator: widget.validator,
       obscureText: _isObscure,
+      maxLines: widget.maxLines,
+      keyboardType: widget.keyboardType,
       decoration: InputDecoration(
         labelText: widget.label,
         labelStyle: AppTheme.body16,

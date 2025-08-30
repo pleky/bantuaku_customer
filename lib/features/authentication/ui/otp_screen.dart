@@ -8,7 +8,6 @@ import 'package:pinput/pinput.dart';
 
 import '../../../constants/assets.dart';
 import '../../../extensions/build_context_extension.dart';
-import '../../../features/authentication/ui/view_model/authentication_view_model.dart';
 import '../../../features/common/ui/widgets/common_back_button.dart';
 import '../../../features/common/ui/widgets/primary_button.dart';
 import '../../../theme/app_theme.dart';
@@ -118,11 +117,11 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                       TextButton(
                         onPressed: isEnableResendButton
                             ? () async {
-                                otpController.clear();
-                                await ref
-                                    .read(authenticationViewModelProvider
-                                        .notifier)
-                                    .signInWithMagicLink(widget.email);
+                                // otpController.clear();
+                                // await ref
+                                //     .read(authenticationViewModelProvider
+                                //         .notifier)
+                                //     .signInWithMagicLink(widget.email);
                                 startTimer();
                               }
                             : null,
@@ -147,13 +146,12 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   PrimaryButton(
                     text: 'confirm'.tr(),
                     isEnable: otpController.text.length == 6,
-                    onPressed: () => ref
-                        .read(authenticationViewModelProvider.notifier)
-                        .verifyOtp(
-                          email: widget.email,
-                          token: otpController.text,
-                          isRegister: widget.isRegister,
-                        ),
+                    onPressed: () {},
+                    // onPressed: () => ref.read(authenticationViewModelProvider.notifier).verifyOtp(
+                    //       email: widget.email,
+                    //       token: otpController.text,
+                    //       isRegister: widget.isRegister,
+                    //     ),
                   ),
                   const SizedBox(height: 32),
                 ],

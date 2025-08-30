@@ -27,7 +27,7 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final txtColor = textColor ?? AppColors.mono0;
-    final bgColor = backgroundColor ?? AppColors.blueberry100;
+    final bgColor = backgroundColor ?? AppColors.schema101;
     return Container(
       height: 48,
       decoration: BoxDecoration(

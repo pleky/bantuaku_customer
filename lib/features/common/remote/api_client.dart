@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_mvvm_riverpod/utils/dio_error_handler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/constants.dart';
 
@@ -13,8 +15,8 @@ ApiClient apiClient(Ref ref) {
 }
 
 class ApiClient {
-  static const String _baseUrl = 'https://example.com/api';
-  static const int _timeout = 30000; // 30 seconds
+  static const String _baseUrl = 'https://api.bantuuntung.com/api/';
+  static const int _timeout = 50000; // 50 seconds
 
   late final Dio _dio;
 
@@ -39,14 +41,15 @@ class ApiClient {
     _dio.interceptors.addAll([
       _LoggingInterceptor(),
       _ErrorInterceptor(),
+      _AuthInterceptor(),
     ]);
   }
 
   Future<T> get<T>(
-      String path, {
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-      }) async {
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+  }) async {
     try {
       final response = await _dio.get<T>(
         path,
@@ -60,11 +63,11 @@ class ApiClient {
   }
 
   Future<T> post<T>(
-      String path, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-      }) async {
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+  }) async {
     try {
       final response = await _dio.post<T>(
         path,
@@ -79,6 +82,7 @@ class ApiClient {
   }
 
   Exception _handleError(DioException error) {
+    print("error jancok $error");
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
@@ -109,10 +113,38 @@ class ApiClient {
         return NotFoundException();
       case 500:
         return ServerException();
+      case 422:
+        final errorMessage = DioErrorHandler.getErrorMessage(
+          DioException(
+            requestOptions: response.requestOptions,
+            response: response,
+          ),
+        );
+        debugPrint("errorMessage: $errorMessage");
+        return BadRequestException(errorMessage);
       default:
         return UnknownException();
     }
   }
+}
+
+Map<String, dynamic> formDataToJSON(FormData formData) {
+  final Map<String, dynamic> json = {};
+  for (var field in formData.fields) {
+    json[field.key] = field.value;
+  }
+  for (var file in formData.files) {
+    json[file.key] ??= [];
+    (json[file.key] as List).add(file.value.filename);
+    json[file.key] = (json[file.key] as List)
+        .map((e) => {
+              'filename': e,
+              'contentType': file.value.contentType?.toString(),
+              'length': file.value.length,
+            })
+        .toList();
+  }
+  return json;
 }
 
 class _LoggingInterceptor extends Interceptor {
@@ -120,7 +152,8 @@ class _LoggingInterceptor extends Interceptor {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     debugPrint('${Constants.tag} REQUEST[${options.method}] => PATH: ${options.path}');
     debugPrint('${Constants.tag} Headers: ${options.headers}');
-    debugPrint('${Constants.tag} Data: ${options.data}');
+    debugPrint(
+        '${Constants.tag} Data: ${options.data is FormData ? formDataToJSON(options.data as FormData) : options.data}');
     super.onRequest(options, handler);
   }
 
@@ -139,10 +172,29 @@ class _LoggingInterceptor extends Interceptor {
   }
 }
 
+class _AuthInterceptor extends Interceptor {
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+    // Add your authentication logic here, e.g., adding an auth token to headers
+    // options.headers['Authorization'] = 'Bearer YOUR_TOKEN';
+    final prefs = await SharedPreferences.getInstance();
+    final isLoggedIn = prefs.getBool(Constants.isLoginKey) ?? false;
+    if (isLoggedIn) {
+      final accessToken = prefs.getString(Constants.accessKey);
+      options.headers['Authorization'] = 'Bearer $accessToken';
+
+      debugPrint('${Constants.tag} [AuthInterceptor] Added Authorization header');
+      debugPrint('${Constants.tag} [AuthInterceptor] Authorization: ${options.headers['Authorization']}');
+    }
+    super.onRequest(options, handler);
+  }
+}
+
 class _ErrorInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     // Add any global error handling logic here
+
     super.onError(err, handler);
   }
 }

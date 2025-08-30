@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '/constants/assets.dart';
 import '/extensions/build_context_extension.dart';
-import '/features/authentication/ui/view_model/authentication_view_model.dart';
 import '/features/common/ui/widgets/secondary_button.dart';
 
 class SignInWithApple extends ConsumerWidget {
@@ -27,8 +26,9 @@ class SignInWithApple extends ConsumerWidget {
         ),
       ),
       text: 'apple'.tr(),
-      onPressed: () =>
-          ref.read(authenticationViewModelProvider.notifier).signInWithApple(),
+      onPressed: () {},
+      // onPressed: () =>
+      //     ref.read(authenticationViewModelProvider.notifier).signInWithApple(),
     );
   }
 }

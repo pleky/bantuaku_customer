@@ -41,10 +41,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final profile =
-        ref.watch(profileViewModelProvider.select((it) => it.value?.profile));
-    final dangerousColor =
-        context.isDarkMode ? AppColors.rambutan80 : AppColors.rambutan100;
+    final profile = ref.watch(profileViewModelProvider.select((it) => it.value?.profile));
+    final dangerousColor = context.isDarkMode ? AppColors.rambutan80 : AppColors.rambutan100;
     return Scaffold(
       backgroundColor: context.secondaryBackgroundColor,
       body: ListView(
@@ -88,9 +86,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 ),
                 Transform.translate(
                   offset: Offset(0, -32),
-                  child: profile.isPremium
-                      ? PremiumInfo(expiryDate: profile?.expiryDatePremium)
-                      : UpgradePremiumButton(),
+                  child:
+                      profile.isPremium ? PremiumInfo(expiryDate: profile?.expiryDatePremium) : UpgradePremiumButton(),
                 ),
               ],
             ),
@@ -158,8 +155,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           ProfileItem(
             icon: HugeIcons.strokeRoundedStar,
             text: Languages.rateUs,
-            onTap: () => context.tryLaunchUrl(
-                Platform.isIOS ? Constants.appStore : Constants.playStore),
+            onTap: () => context.tryLaunchUrl(Platform.isIOS ? Constants.appStore : Constants.playStore),
           ),
           ProfileItem(
             icon: HugeIcons.strokeRoundedSettingError04,
@@ -208,8 +204,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         _version = info.version;
       });
     }).catchError((error) {
-      debugPrint(
-          '${Constants.tag} [_ProfileScreenState._getPackageInfo] Error: $error');
+      debugPrint('${Constants.tag} [_ProfileScreenState._getPackageInfo] Error: $error');
     });
   }
 
@@ -225,7 +220,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         primaryButtonAction: () async {
           try {
             Global.showLoading(context);
-            await ref.read(profileViewModelProvider.notifier).signOut();
+            // await ref.read(profileViewModelProvider.notifier).signOut();
           } on AuthException catch (error) {
             if (context.mounted) {
               context.showErrorSnackBar(error.message);
@@ -257,7 +252,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         primaryButtonAction: () async {
           try {
             Global.showLoading(context);
-            await ref.read(profileViewModelProvider.notifier).signOut();
+            // await ref.read(profileViewModelProvider.notifier).signOut();
           } on AuthException catch (error) {
             if (context.mounted) {
               context.showErrorSnackBar(error.message);

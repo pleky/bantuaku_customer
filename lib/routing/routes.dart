@@ -11,4 +11,9 @@ class Routes {
   static const appearances = '/appearances';
   static const languages = '/languages';
   static const premium = '/premium';
+  static const signup = '/signup';
+  static const home = '/home';
+  static const createJob = '/create-job';
+  static const findWorker = '/find-worker';
+  static const workers = '/workers';
 }

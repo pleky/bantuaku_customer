@@ -26,4 +26,7 @@ class Constants {
   static const String isLoginKey = 'is_login_key';
   static const String isExistAccountKey = 'is_exist_account_key';
   static const String lastDayShowPremiumKey = 'last_day_show_premium_key';
+
+  // new constants
+  static const String accessKey = 'access_key';
 }

@@ -6,11 +6,10 @@ part 'profile_state.freezed.dart';
 part 'profile_state.g.dart';
 
 @freezed
-class ProfileState with _$ProfileState {
+abstract class ProfileState with _$ProfileState {
   const factory ProfileState({
     Profile? profile,
   }) = _ProfileState;
 
-  factory ProfileState.fromJson(Map<String, Object?> json) =>
-      _$ProfileStateFromJson(json);
+  factory ProfileState.fromJson(Map<String, Object?> json) => _$ProfileStateFromJson(json);
 }

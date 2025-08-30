@@ -2,16 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../constants/assets.dart';
-import '../../../features/authentication/ui/view_model/authentication_view_model.dart';
 import '../../../features/authentication/ui/widgets/horizontal_divider.dart';
 import '../../../features/authentication/ui/widgets/social_sign_in.dart';
 import '../../../features/common/ui/widgets/common_back_button.dart';
 import '../../../features/common/ui/widgets/common_text_form_field.dart';
 import '../../../features/common/ui/widgets/primary_button.dart';
-import '../../../routing/routes.dart';
 import '../../../theme/app_theme.dart';
 import '../../../utils/validator.dart';
 
@@ -80,16 +77,16 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     isEnable: _isEmailValid,
                     text: 'continue'.tr(),
                     onPressed: () {
-                      ref
-                          .read(authenticationViewModelProvider.notifier)
-                          .signInWithMagicLink(_emailController.text);
-                      context.push(
-                        Routes.otp,
-                        extra: {
-                          'email': _emailController.text,
-                          'isRegister': false,
-                        },
-                      );
+                      // ref
+                      //     .read(authenticationViewModelProvider.notifier)
+                      //     .signInWithMagicLink(_emailController.text);
+                      // context.push(
+                      //   Routes.otp,
+                      //   extra: {
+                      //     'email': _emailController.text,
+                      //     'isRegister': false,
+                      //   },
+                      // );
                     },
                   ),
                   const SizedBox(height: 16),

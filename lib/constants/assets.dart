@@ -2,6 +2,7 @@ class Assets {
   Assets._();
 
   static const loading = 'assets/animations/loading.json';
+  static const radar = 'assets/animations/radar.json';
 
   static const empty = 'assets/images/empty.svg';
   static const error404 = 'assets/images/404.svg';
@@ -12,4 +13,7 @@ class Assets {
   static const appleLogo = 'assets/images/apple_logo.svg';
   static const avatar = 'assets/images/avatar.webp';
   static const premiumBackground = 'assets/images/premium_background.webp';
+  static const splashLogo = 'assets/images/splash_logo.webp';
+  static const appLogo = 'assets/images/app_logo.webp';
+  static const add = 'assets/images/add.svg';
 }

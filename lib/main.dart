@@ -1,16 +1,10 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'constants/constants.dart';
-import 'environment/env.dart';
 import 'extensions/build_context_extension.dart';
 import 'features/common/ui/providers/app_theme_mode_provider.dart';
 import 'features/common/ui/widgets/offline_container.dart';
@@ -19,12 +13,12 @@ import 'utils/provider_observer.dart';
 
 Future<void> initPlatformState() async {
   try {
-    await Purchases.setLogLevel(LogLevel.debug);
+    // await Purchases.setLogLevel(LogLevel.debug);
 
-    final configuration = PurchasesConfiguration(
-      Platform.isIOS ? Env.revenueCatAppStore : Env.revenueCatPlayStore,
-    );
-    await Purchases.configure(configuration);
+    // final configuration = PurchasesConfiguration(
+    //   Platform.isIOS ? Env.revenueCatAppStore : Env.revenueCatPlayStore,
+    // );
+    // await Purchases.configure(configuration);
   } on PlatformException catch (e) {
     debugPrint('${Constants.tag} [initPlatformState] Error: ${e.message}');
   }
@@ -47,10 +41,10 @@ void main() async {
   // };
 
   /// Supabase
-  await Supabase.initialize(
-    url: Env.supabaseUrl,
-    anonKey: Env.supabaseAnonKey,
-  );
+  // await Supabase.initialize(
+  //   url: Env.supabaseUrl,
+  //   anonKey: Env.supabaseAnonKey,
+  // );
 
   /// Mobile ads
   // MobileAds.instance.initialize();
@@ -62,16 +56,16 @@ void main() async {
   await EasyLocalization.ensureInitialized();
 
   /// Google Font
-  LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString('google_fonts/OFL.txt');
-    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
-  });
+  // LicenseRegistry.addLicense(() async* {
+  //   final license = await rootBundle.loadString('google_fonts/OFL.txt');
+  //   yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  // });
 
   runApp(
     ProviderScope(
       observers: [AppObserver()],
       child: EasyLocalization(
-        supportedLocales: const [Locale('en'), Locale('vi')],
+        supportedLocales: const [Locale('en'), Locale('id')],
         path: 'assets/translations',
         fallbackLocale: const Locale('en'),
         useOnlyLangCode: true,
@@ -80,8 +74,6 @@ void main() async {
     ),
   );
 }
-
-final supabase = Supabase.instance.client;
 
 class MainApp extends ConsumerWidget {
   const MainApp({super.key});

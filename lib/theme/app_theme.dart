@@ -4,27 +4,27 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   AppTheme._();
 
-  static final title32 = GoogleFonts.nunito(
+  static final title32 = GoogleFonts.roboto(
     fontSize: 32,
     fontWeight: FontWeight.w700,
   );
 
-  static final title24 = GoogleFonts.nunito(
+  static final title24 = GoogleFonts.roboto(
     fontSize: 24,
     fontWeight: FontWeight.w700,
   );
 
-  static final title20 = GoogleFonts.nunito(
+  static final title20 = GoogleFonts.roboto(
     fontSize: 20,
     fontWeight: FontWeight.w700,
   );
 
-  static final title18 = GoogleFonts.nunito(
+  static final title18 = GoogleFonts.roboto(
     fontSize: 18,
     fontWeight: FontWeight.w700,
   );
 
-  static final title16 = GoogleFonts.nunito(
+  static final title16 = GoogleFonts.roboto(
     fontSize: 16,
     fontWeight: FontWeight.w700,
   );

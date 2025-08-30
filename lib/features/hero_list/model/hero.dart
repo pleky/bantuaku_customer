@@ -5,15 +5,13 @@ part 'hero.freezed.dart';
 part 'hero.g.dart';
 
 @freezed
-class Hero with _$Hero {
+abstract class Hero with _$Hero {
   const factory Hero({
     required String id,
     required String name,
     required String description,
     required String imageUrl,
-    @Default(false)
-    @JsonKey(fromJson: _boolFromJson, toJson: _boolToJson)
-    bool isFavorite,
+    @Default(false) @JsonKey(fromJson: _boolFromJson, toJson: _boolToJson) bool isFavorite,
     @Default(0) int power,
     @JsonKey(
       fromJson: _dateTimeFromJson,

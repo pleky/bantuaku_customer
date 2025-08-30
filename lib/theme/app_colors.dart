@@ -65,4 +65,16 @@ class AppColors {
   static const gradient100 = Color(0xFF000000);
 
   static const premiumBackground = Color(0xFF000000);
+
+  static const melon10 = Color(0xFFE8F9E8);
+  static const melon20 = Color(0xFFD0F2D0);
+  static const melon30 = Color(0xFFB9EBC0);
+  static const melon40 = Color(0xFF36D33C);
+  static const melon50 = Color(0xFF2CC32F);
+  static const melon60 = Color(0xFF22B222);
+
+  static const schema101 = Color(0xFF09122C);
+  static const schema102 = Color(0xFF872341);
+  static const schema103 = Color(0xFFBE3144);
+  static const schema104 = Color(0xFFE17564);
 }

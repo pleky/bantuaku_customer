@@ -15,6 +15,7 @@ class Languages {
   static String unexpectedErrorOccurred = 'unexpected_error_occurred'.tr();
   static String validatorRequiredField = 'validator_required_field'.tr();
   static String validatorInvalidEmailFormat = 'validator_invalid_email_format'.tr();
+  static String address = 'address'.tr();
 
   // Auth
   static String welcome = 'welcome'.tr();
@@ -31,13 +32,27 @@ class Languages {
   static String signInAgreementPrefix = 'sign_in_agreement_prefix'.tr();
   static String signInAgreementMiddle = 'sign_in_agreement_middle'.tr();
   static String signInAgreementSuffix = 'sign_in_agreement_suffix'.tr();
+  static String signUp = 'sign_up'.tr();
+  static String signupDescription = 'sign_up_description'.tr();
+  static String fullName = 'fullname'.tr();
+  static String phoneNumber = 'phone_number'.tr();
+  static String password = 'password'.tr();
+  static String confrimPassword = 'confirm_password'.tr();
+  static String refNumber = 'ref_number'.tr();
+  static String signUpAgreementSuffix = 'sign_up_agreement_suffix'.tr();
+  static String agreeToTermsError = 'agree_to_terms_error'.tr();
+  static String dontHaveAccount = 'dont_have_account'.tr();
 
   // Home
   static String goodMorning = 'good_morning';
   static String goodAfternoon = 'good_afternoon';
   static String goodEvening = 'good_evening';
+  static String topup = 'Top Up';
+  static String jobQualifications = 'job_qualifications'.tr();
+  static String jobWithoutQualifications = 'job_without_qualifications'.tr();
 
   // Profile
+  static String completeProfile = 'complete_profile'.tr();
   static String general = 'general'.tr();
   static String preferences = 'preferences'.tr();
   static String dangerousZone = 'dangerous_zone'.tr();
@@ -86,9 +101,7 @@ class Languages {
   static String bestPrice = 'best_price'.tr();
   static String premiumAgreementPrefix = 'premium_agreement_prefix'.tr();
   static String premiumAgreementMiddle = 'premium_agreement_middle'.tr();
-  static String subscriptionInfo = Platform.isIOS
-      ? 'subscription_info_ios'.tr()
-      : 'subscription_info_android'.tr();
+  static String subscriptionInfo = Platform.isIOS ? 'subscription_info_ios'.tr() : 'subscription_info_android'.tr();
   static String restorePurchases = 'restore_purchases'.tr();
   static String fetchOfferingsError = 'fetch_offerings_error'.tr();
   static String packageNotFoundError = 'package_not_found_error'.tr();
@@ -97,4 +110,17 @@ class Languages {
   static String restorePurchasesSuccess = 'restore_purchases_success'.tr();
   static String noActivePurchases = 'no_active_purchases'.tr();
   static String restorePurchasesError = 'restore_purchases_error'.tr();
+
+  // job
+  static String jobLocations = 'job_locations'.tr();
+  static String title = 'title'.tr();
+  static String description = 'description'.tr();
+  static String photo = 'photo'.tr();
+  static String nominal = 'nominal'.tr();
+  static String duration = 'duration'.tr();
+  static String createJob = 'create_job'.tr();
+  static String enterAddress = 'enter_address'.tr();
+  static String qualifications = 'qualifications'.tr();
+  static String searchingNearbyWorker = 'searching_nearby_worker'.tr();
+  static String viewAllWorkers = 'view_all_workers'.tr();
 }
