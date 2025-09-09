@@ -1,4 +1,4 @@
-package com.bantuaku.worker
+package com.bantuaku.customer
 
 import io.flutter.embedding.android.FlutterActivity
 

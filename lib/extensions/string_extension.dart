@@ -3,8 +3,7 @@ extension NullableStringExtension on String? {
 
   bool get isNotNullOrEmpty => this != null && this!.isNotEmpty;
 
-  bool get isUrl =>
-      this != null && Uri.tryParse(this!)?.host.isNotEmpty == true;
+  bool get isUrl => this != null && Uri.tryParse(this!)?.host.isNotEmpty == true;
 
   String toCapitalize() {
     if (this == null) return '';
@@ -12,4 +11,9 @@ extension NullableStringExtension on String? {
   }
 
   String orEmpty() => this ?? '';
+
+  String capitalFirstLetterAndLowercaseRest() {
+    if (this == null) return '';
+    return this![0].toUpperCase() + this!.substring(1).toLowerCase();
+  }
 }

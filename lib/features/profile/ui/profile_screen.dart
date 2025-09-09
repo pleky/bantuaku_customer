@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/primary_button.dart';
+import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/secondary_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -53,43 +55,54 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           48,
         ),
         children: [
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 16),
-            decoration: BoxDecoration(
-              color: context.secondaryWidgetColor,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              children: [
-                Transform.translate(
-                  offset: Offset(0, -48),
-                  child: Column(
-                    children: [
-                      Avatar(url: profile?.avatar),
-                      const SizedBox(height: 16),
-                      Center(
-                        child: Text(
-                          profile?.name ?? Constants.defaultName,
-                          style: AppTheme.title24,
-                        ),
-                      ),
-                      Center(
-                        child: Text(
-                          profile?.email ?? '',
-                          style: AppTheme.body14.copyWith(
-                            color: context.secondaryTextColor,
+          Card(
+            margin: EdgeInsets.only(top: 16),
+            color: AppColors.mono0,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  Transform.translate(
+                    offset: Offset(0, -48),
+                    child: Column(
+                      children: [
+                        Avatar(url: profile?.avatar),
+                        const SizedBox(height: 16),
+                        Center(
+                          child: Text(
+                            profile?.name ?? Constants.defaultName,
+                            style: AppTheme.title24,
                           ),
                         ),
-                      ),
-                    ],
+                        Center(
+                          child: Text(
+                            profile?.email ?? 'rendrasaputra@gmail.com',
+                            style: AppTheme.body14.copyWith(
+                              color: context.secondaryTextColor,
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: Text(
+                            profile?.email ?? '+6285933008404',
+                            style: AppTheme.body14.copyWith(
+                              color: context.secondaryTextColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Transform.translate(
-                  offset: Offset(0, -32),
-                  child:
-                      profile.isPremium ? PremiumInfo(expiryDate: profile?.expiryDatePremium) : UpgradePremiumButton(),
-                ),
-              ],
+                  Transform.translate(
+                    offset: Offset(0, -20),
+                    child: PrimaryButton(
+                      text: "Edit Profile",
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 8),
@@ -102,15 +115,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           ),
           const SizedBox(height: 8),
           ProfileItem(
-            icon: HugeIcons.strokeRoundedUser,
-            text: Languages.accountInformation,
-            isFirst: true,
-            onTap: () {
-              context.push(
-                Routes.accountInformation,
-                extra: profile ?? Profile(),
-              );
-            },
+            icon: HugeIcons.strokeRoundedPayment01,
+            text: Languages.paymentMethod,
+            onTap: () {},
           ),
           ProfileItem(
             icon: HugeIcons.strokeRoundedIdea,
@@ -137,6 +144,18 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           ),
           const SizedBox(height: 8),
           ProfileItem(
+            icon: HugeIcons.strokeRoundedHelpCircle,
+            text: Languages.helpCenter,
+            isFirst: true,
+            onTap: () => {},
+          ),
+          ProfileItem(
+            icon: HugeIcons.strokeRoundedCustomerService,
+            text: Languages.customerService,
+            isFirst: true,
+            onTap: () => {},
+          ),
+          ProfileItem(
             icon: HugeIcons.strokeRoundedNews,
             text: Languages.termOfService,
             isFirst: true,
@@ -147,22 +166,22 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             text: Languages.privacyPolicy,
             onTap: () => context.tryLaunchUrl(Constants.privacyPolicy),
           ),
-          ProfileItem(
-            icon: HugeIcons.strokeRoundedUserMultiple,
-            text: Languages.aboutUs,
-            onTap: () => context.tryLaunchUrl(Constants.aboutUs),
-          ),
-          ProfileItem(
-            icon: HugeIcons.strokeRoundedStar,
-            text: Languages.rateUs,
-            onTap: () => context.tryLaunchUrl(Platform.isIOS ? Constants.appStore : Constants.playStore),
-          ),
-          ProfileItem(
-            icon: HugeIcons.strokeRoundedSettingError04,
-            text: Languages.reportAProblem,
-            isLast: true,
-            onTap: () => context.tryLaunchUrl(Constants.facebookPage),
-          ),
+          // ProfileItem(
+          //   icon: HugeIcons.strokeRoundedUserMultiple,
+          //   text: Languages.aboutUs,
+          //   onTap: () => context.tryLaunchUrl(Constants.aboutUs),
+          // ),
+          // ProfileItem(
+          //   icon: HugeIcons.strokeRoundedStar,
+          //   text: Languages.rateUs,
+          //   onTap: () => context.tryLaunchUrl(Platform.isIOS ? Constants.appStore : Constants.playStore),
+          // ),
+          // ProfileItem(
+          //   icon: HugeIcons.strokeRoundedSettingError04,
+          //   text: Languages.reportAProblem,
+          //   isLast: true,
+          //   onTap: () => context.tryLaunchUrl(Constants.facebookPage),
+          // ),
           const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -178,13 +197,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             textColor: dangerousColor,
             isFirst: true,
             onTap: () => _signOut(context),
-          ),
-          ProfileItem(
-            icon: HugeIcons.strokeRoundedDelete01,
-            text: Languages.deleteAccount,
-            textColor: dangerousColor,
-            isLast: true,
-            onTap: () => _deleteAccount(context),
           ),
           const SizedBox(height: 24),
           Center(

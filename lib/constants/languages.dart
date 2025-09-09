@@ -77,6 +77,18 @@ class Languages {
   static String deleteAccount = 'delete_account'.tr();
   static String deleteAccountTitle = 'delete_account_title'.tr();
   static String deleteAccountMessage = 'delete_account_message'.tr();
+  static String paymentMethod = 'payment_method'.tr();
+  static String helpCenter = 'help_center'.tr();
+  static String customerService = "customer_service".tr();
+  static String jobProof = "job_proof".tr();
+  static String viewJobProof = "view_job_proof".tr();
+  static String howWasTheService = "how_was_the_service".tr();
+  static String jobLocation = "job_location".tr();
+  static String jobDescription = "job_description".tr();
+  static String paymentsDetails = "payments_details".tr();
+  static String totalPayment = "total_payment".tr();
+  static String serviceFee = "service_fee".tr();
+  static String tax = "tax".tr();
 
   // Premium
   static String premium = 'premium'.tr();
@@ -123,4 +135,9 @@ class Languages {
   static String qualifications = 'qualifications'.tr();
   static String searchingNearbyWorker = 'searching_nearby_worker'.tr();
   static String viewAllWorkers = 'view_all_workers'.tr();
+  static String activityHistory = 'activity_history'.tr();
+  static String transactionCompleted = 'transaction_completed'.tr();
+
+  static String rateService = "rate_service".tr();
+  static String back = "back".tr();
 }

@@ -16,4 +16,7 @@ class Routes {
   static const createJob = '/create-job';
   static const findWorker = '/find-worker';
   static const workers = '/workers';
+  static const jobList = '/job-list';
+  static const jobHistoryDetail = '/job-history-detail';
+  static const proofJob = '/proof-job';
 }

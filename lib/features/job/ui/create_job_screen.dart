@@ -10,6 +10,8 @@ import 'package:flutter_mvvm_riverpod/features/job/model/skill_response.dart';
 import 'package:flutter_mvvm_riverpod/features/job/ui/view_model/create_job_view_model.dart';
 import 'package:flutter_mvvm_riverpod/misc/tile_provider.dart';
 import 'package:flutter_mvvm_riverpod/routing/routes.dart';
+import 'package:flutter_mvvm_riverpod/theme/app_colors.dart';
+import 'package:flutter_mvvm_riverpod/theme/app_theme.dart';
 import 'package:flutter_mvvm_riverpod/utils/global_loading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
@@ -110,69 +112,77 @@ class _State extends ConsumerState<CreateJobScreen> {
                     children: [
                       Visibility(
                         visible: widget.isSkillActive,
-                        child: FormBuilderSearchableDropdown<SkillResponse>(
-                          name: "qualification",
-                          compareFn: (item1, item2) => item1.id == item2.id,
-                          asyncItems: (filter, loadProps) async {
-                            final result = await ref.read(createJobViewModelProvider.notifier).fetchSkills();
-                            return result;
-                          },
-                          itemAsString: (item) => item.namaSkill,
-                          decoration: InputDecoration(
-                            labelText: Languages.qualifications,
-                            filled: true,
-                          ),
-                          validator: widget.isSkillActive
-                              ? FormBuilderValidators.compose([
-                                  FormBuilderValidators.required(),
-                                ])
-                              : null,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              Languages.qualifications,
+                              style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                            ),
+                            FormBuilderSearchableDropdown<SkillResponse>(
+                              name: "qualification",
+                              compareFn: (item1, item2) => item1.id == item2.id,
+                              asyncItems: (filter, loadProps) async {
+                                final result = await ref.read(createJobViewModelProvider.notifier).fetchSkills();
+                                return result;
+                              },
+                              itemAsString: (item) => item.namaSkill,
+                              validator: widget.isSkillActive
+                                  ? FormBuilderValidators.compose([
+                                      FormBuilderValidators.required(),
+                                    ])
+                                  : null,
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(height: 8),
+                      Text(
+                        Languages.jobLocation,
+                        style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                      ),
+                      SizedBox(height: 4),
                       FormBuilderTextField(
                         maxLines: 3,
                         name: "address",
-                        decoration: InputDecoration(
-                          labelText: Languages.jobLocations,
-                          filled: true,
-                        ),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
                         ]),
                       ),
                       SizedBox(height: 8),
+                      Text(
+                        Languages.title,
+                        style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                      ),
                       FormBuilderTextField(
                         name: 'title',
-                        decoration: InputDecoration(
-                          filled: true,
-                          labelText: Languages.title,
-                        ),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
                         ]),
                       ),
                       SizedBox(height: 8),
+                      Text(
+                        Languages.description,
+                        style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                      ),
                       FormBuilderTextField(
                         name: "description",
                         maxLines: 3,
-                        decoration: InputDecoration(
-                          filled: true,
-                          floatingLabelAlignment: FloatingLabelAlignment.start,
-                          labelText: Languages.description,
-                        ),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
                         ]),
                       ),
                       SizedBox(height: 8),
+                      Text(
+                        Languages.photo,
+                        style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                      ),
                       FormBuilderImagePicker(
                         name: "image_path[]",
                         maxImages: 3,
-                        decoration: InputDecoration(
-                          filled: true,
-                          labelText: Languages.photo,
-                        ),
+                        icon: Icons.image,
+                        iconColor: AppColors.mono60,
+                        backgroundColor: AppColors.mono40,
                         transformImageWidget: (context, image) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0), // 👈 Add spacing between images
@@ -187,25 +197,25 @@ class _State extends ConsumerState<CreateJobScreen> {
                         ]),
                       ),
                       SizedBox(height: 8),
+                      Text(
+                        "Budget (IDR)",
+                        style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                      ),
                       FormBuilderTextField(
                         name: "budget",
                         keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          filled: true,
-                          labelText: Languages.nominal,
-                        ),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
                           FormBuilderValidators.minLength(1),
                         ]),
                       ),
                       SizedBox(height: 8),
+                      Text(
+                        Languages.duration,
+                        style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                      ),
                       FormBuilderDurationPicker(
                         name: 'job_duration',
-                        decoration: InputDecoration(
-                          labelText: Languages.duration,
-                          filled: true,
-                        ),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
                         ]),

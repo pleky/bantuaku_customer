@@ -121,5 +121,23 @@
   "enter_address": "Enter address via maps",
   "qualifications": "Qualifications",
   "searching_nearby_worker": "Searching for nearby workers...",
-  "view_all_workers": "View All Workers"
+  "view_all_workers": "View All Workers",
+  "activity_history": "Activity History",
+  "transaction_completed": "Transaction Completed",
+  "edit_profile": "Edit Profile",
+  "payment_method": "Payment Method",
+  "help_center": "Help Center",
+  "customer_service": "Customer Service",
+  "job_proof": "Job Proof",
+  "view_job_proof": "View Job Proof",
+  "rate_service": "Help us improve our service by rating this service.",
+  "how_was_the_service": "How was the service of our worker?",
+  "job_location": "Job Location",
+  "job_description": "Job Description",
+  "payments_details": "Payments Details",
+  "total_payment": "Total Payment",
+  "service_fee": "Service Fee",
+  "tax": "Tax",
+  "back": "Back"
+  
 }

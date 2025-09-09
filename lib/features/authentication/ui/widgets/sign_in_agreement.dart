@@ -33,7 +33,9 @@ class SignInAgreement extends StatelessWidget {
               TextSpan(text: ' ${Languages.signInAgreementMiddle} '),
               TextSpan(
                 text: Languages.privacyPolicy,
-                style: AppTheme.title12,
+                style: AppTheme.title12.copyWith(
+                  color: context.primaryTextColor,
+                ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     context.tryLaunchUrl(Constants.privacyPolicy);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/features/home/ui/home_screen.dart';
+import 'package:flutter_mvvm_riverpod/features/job/ui/job_list_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -11,6 +12,7 @@ import '../../hero_list/ui/view_model/hero_count_provider.dart';
 
 const List<Widget> _screens = [
   HomeScreen(),
+  JobListScreen(),
   ProfileScreen(),
 ];
 
@@ -44,12 +46,25 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   ) {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.home, color: selectedColor),
-        inactiveIcon: Icon(Icons.home_outlined, color: unselectedColor),
+        title: "Home",
+        icon: Icon(MingCuteIcons.mgc_home_1_fill, color: selectedColor),
+        inactiveIcon: Icon(MingCuteIcons.mgc_home_1_line, color: unselectedColor),
+        activeColorPrimary: selectedColor,
       ),
       PersistentBottomNavBarItem(
+        title: "Jobs",
+        icon: Icon(MingCuteIcons.mgc_clipboard_fill, color: selectedColor),
+        inactiveIcon: Icon(MingCuteIcons.mgc_clipboard_line, color: unselectedColor),
+        activeColorPrimary: selectedColor,
+      ),
+      PersistentBottomNavBarItem(
+        title: "Profile",
         icon: Icon(MingCuteIcons.mgc_user_3_fill, color: selectedColor),
-        inactiveIcon: Icon(MingCuteIcons.mgc_user_3_line, color: unselectedColor),
+        inactiveIcon: Icon(
+          MingCuteIcons.mgc_user_3_line,
+          color: unselectedColor,
+        ),
+        activeColorPrimary: selectedColor,
       ),
     ];
   }
@@ -88,12 +103,10 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         popBehaviorOnSelectedNavBarItemPress: PopBehavior.all,
         animationSettings: const NavBarAnimationSettings(
           navBarItemAnimation: ItemAnimationSettings(
-            // Navigation Bar's items animation properties.
             duration: Duration(milliseconds: 400),
             curve: Curves.ease,
           ),
           screenTransitionAnimation: ScreenTransitionAnimationSettings(
-            // Screen transition animation on change of selected tab.
             animateTabTransition: true,
             duration: Duration(milliseconds: 300),
             screenTransitionAnimationType: ScreenTransitionAnimationType.fadeIn,
@@ -103,7 +116,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
             curve: Curves.bounceInOut,
           ),
         ),
-        navBarStyle: NavBarStyle.style6,
+        navBarStyle: NavBarStyle.style3,
       ),
     );
   }

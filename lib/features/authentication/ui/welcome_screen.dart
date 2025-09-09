@@ -45,10 +45,10 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
   void _validateForm() {
     if (_formKey.currentState?.validate() ?? false) {
       final payload = SigninRequest(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-        role: 'customer',
-      );
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+          role: 'customer',
+          fcmToken: 'your_fcm_token');
       ref.read(authenticationViewModelProvider.notifier).signIn(payload);
     }
   }

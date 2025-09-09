@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_mvvm_riverpod/theme/app_colors.dart';
 
 class FormBuilderDurationPicker extends FormBuilderField<Duration> {
   FormBuilderDurationPicker({
@@ -30,7 +31,7 @@ class FormBuilderDurationPicker extends FormBuilderField<Duration> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Icon(Icons.timer, color: Colors.red.shade900),
+                    Icon(Icons.timer, color: AppColors.mono90),
                   ],
                 ),
               ),

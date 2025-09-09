@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/primary_button.dart';
+import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/star_rating.dart';
 import 'package:flutter_mvvm_riverpod/theme/app_colors.dart';
 import 'package:flutter_mvvm_riverpod/theme/app_theme.dart';
+import 'package:flutter_mvvm_riverpod/utils/utils.dart';
 import 'package:path/path.dart';
 
 class WorkersScreen extends StatelessWidget {
@@ -29,47 +32,55 @@ class WorkersScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.only(bottom: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _sectionHeader("Pekerja yang siap"),
             const SizedBox(height: 8),
-            Column(
-              children: readyWorkers.map((worker) {
-                return WorkerCard(
-                  worker: worker,
-                  type: WorkerCardType.ready,
-                  onSelect: () {
-                    // TODO: Navigate or handle select
-                  },
-                );
-              }).toList(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: readyWorkers.map((worker) {
+                  return WorkerCard(
+                    worker: worker,
+                    type: WorkerCardType.ready,
+                    onSelect: () {
+                      // TODO: Navigate or handle select
+                    },
+                  );
+                }).toList(),
+              ),
             ),
             const SizedBox(height: 16),
             _sectionHeader("Pekerja yang menawar"),
             const SizedBox(height: 8),
-            Column(
-              children: biddingWorkers.map((worker) {
-                return WorkerCard(
-                  worker: worker,
-                  type: WorkerCardType.bidding,
-                  onAccept: () {
-                    // TODO: Accept logic
-                  },
-                  onBid: () {
-                    // TODO: Bid logic
-                  },
-                );
-              }).toList(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: biddingWorkers.map((worker) {
+                  return WorkerCard(
+                    worker: worker,
+                    type: WorkerCardType.bidding,
+                    onAccept: () {
+                      // TODO: Accept logic
+                    },
+                    onBid: () {
+                      // TODO: Bid logic
+                    },
+                  );
+                }).toList(),
+              ),
             ),
             const SizedBox(height: 16),
-            Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: PrimaryButton(
+                backgroundColor: AppColors.schema103,
                 onPressed: () {
                   // Cancel transaction
                 },
-                child: const Text("Batalkan Transaksi"),
+                text: "Batalkan Transaksi",
               ),
             ),
           ],
@@ -124,117 +135,68 @@ class WorkerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: AppColors.whiteBg,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(12),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Column(
           children: [
-            CircleAvatar(
-              backgroundImage: NetworkImage(worker.image),
-              radius: 24,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(worker.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  const SizedBox(height: 4),
-                  Row(
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  backgroundImage: NetworkImage(worker.image),
+                  radius: 24,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      StarRating(rating: worker.rating, size: 16),
+                      Text(worker.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          StarRating(rating: worker.rating, size: 16),
+                          Spacer(),
+                          Text(Utils.formatRupiah(worker.price), style: AppTheme.subtitle12),
+                        ],
+                      ),
                     ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            if (type == WorkerCardType.ready)
+              PrimaryButton(
+                text: "Pilih Pekerja",
+                onPressed: () {},
+              )
+            else
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryDark),
+                      onPressed: () {},
+                      child: const Text("Terima", style: TextStyle(color: AppColors.whiteBg)),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: AppColors.cempedak70),
+                      onPressed: () {},
+                      child: const Text("Tawar"),
+                    ),
                   ),
                 ],
               ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text("Rp ${worker.price}", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                const SizedBox(height: 8),
-                if (type == WorkerCardType.ready)
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                    ),
-                    onPressed: onSelect,
-                    child: const Text("Pilih Pekerja"),
-                  )
-                else
-                  Row(
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                        ),
-                        onPressed: onAccept,
-                        child: const Text("Terima"),
-                      ),
-                      const SizedBox(width: 8),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.yellow[700],
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                        ),
-                        onPressed: onBid,
-                        child: const Text("Tawar"),
-                      ),
-                    ],
-                  ),
-              ],
-            )
           ],
         ),
       ),
-    );
-  }
-}
-
-class StarRating extends StatelessWidget {
-  final double rating;
-  final int starCount;
-  final Color color;
-  final double size;
-
-  const StarRating({
-    Key? key,
-    required this.rating,
-    this.starCount = 5,
-    this.color = Colors.orange,
-    this.size = 24,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final stars = List.generate(starCount, (index) {
-      final starValue = index + 1;
-      if (rating >= starValue) {
-        return Icon(Icons.star, color: color, size: size);
-      } else if (rating > starValue - 1 && rating < starValue) {
-        return Icon(Icons.star_half, color: color, size: size);
-      } else {
-        return Icon(Icons.star_border, color: color, size: size);
-      }
-    });
-
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ...stars,
-        const SizedBox(width: 4),
-        Text(
-          "(${rating.toStringAsFixed(1)})",
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-      ],
     );
   }
 }

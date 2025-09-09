@@ -47,7 +47,7 @@ class AppColors {
   static const rambutan90 = Color(0xFFE82754);
   static const rambutan100 = Color(0xFFE60F41);
 
-  static const whiteBg = Color(0xFFFFF5EE);
+  static const whiteBg = Color(0xFFFFFFFF);
   static const mono0 = Color(0xFFFFFFFF);
   static const mono20 = Color(0xFFEFEFEF);
   static const mono40 = Color(0xFFBEBEBE);
@@ -77,4 +77,12 @@ class AppColors {
   static const schema102 = Color(0xFF872341);
   static const schema103 = Color(0xFFBE3144);
   static const schema104 = Color(0xFFE17564);
+
+  static const primaryDark = Color(0xFF161a1d);
+  static const primaryDark10 = Color(0xFF2d3134);
+  static const primaryDark20 = Color(0xFF45484a);
+  static const primaryDark30 = Color(0xFF5c5f61);
+  static const primaryDark40 = Color(0xFF737677);
+  static const primaryDark50 = Color(0xFF8b8d8e);
+  static const primaryDark60 = Color(0xFFa2a3a5);
 }

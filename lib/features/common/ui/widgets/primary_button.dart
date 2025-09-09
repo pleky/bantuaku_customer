@@ -26,8 +26,9 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final txtColor = textColor ?? AppColors.mono0;
-    final bgColor = backgroundColor ?? AppColors.schema101;
+    final bgColor = backgroundColor ?? (isDarkMode ? AppColors.schema102 : AppColors.mono100);
     return Container(
       height: 48,
       decoration: BoxDecoration(

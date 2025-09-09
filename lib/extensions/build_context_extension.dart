@@ -30,6 +30,32 @@ extension ThemeModeExtension on BuildContext {
               error: AppColors.schema103,
               secondary: AppColors.schema102,
             ),
+        inputDecorationTheme: InputDecorationTheme(
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: AppColors.mono40,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: primaryTextColor,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: AppColors.schema103,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: AppColors.schema103,
+            ),
+          ),
+        ),
         textTheme: Theme.of(this).textTheme.apply(
               bodyColor: AppColors.mono100,
             ),

@@ -3,6 +3,9 @@ import 'package:flutter_mvvm_riverpod/features/authentication/ui/signup_screen.d
 import 'package:flutter_mvvm_riverpod/features/home/ui/home_screen.dart';
 import 'package:flutter_mvvm_riverpod/features/job/ui/create_job_screen.dart';
 import 'package:flutter_mvvm_riverpod/features/job/ui/find_worker_screen.dart';
+import 'package:flutter_mvvm_riverpod/features/job/ui/job_history_detail_screen.dart';
+import 'package:flutter_mvvm_riverpod/features/job/ui/job_list_screen.dart';
+import 'package:flutter_mvvm_riverpod/features/job/ui/proof_job_screen.dart';
 import 'package:flutter_mvvm_riverpod/features/worker/ui/workers_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -78,7 +81,7 @@ class SlideRouteTransition extends CustomTransitionPage<void> {
 }
 
 final GoRouter router = GoRouter(
-  initialLocation: Routes.workers,
+  initialLocation: Routes.splash,
   routes: [
     GoRoute(
       path: Routes.splash,
@@ -154,6 +157,21 @@ final GoRouter router = GoRouter(
       name: Routes.workers,
       path: Routes.workers,
       pageBuilder: (context, state) => state.slidePage(const WorkersScreen()),
-    )
+    ),
+    GoRoute(
+      name: Routes.jobList,
+      path: Routes.jobList,
+      pageBuilder: (context, state) => state.slidePage(const JobListScreen()),
+    ),
+    GoRoute(
+      name: Routes.jobHistoryDetail,
+      path: Routes.jobHistoryDetail,
+      pageBuilder: (context, state) => state.slidePage(const JobHistoryDetailScreen()),
+    ),
+    GoRoute(
+      name: Routes.proofJob,
+      path: Routes.proofJob,
+      pageBuilder: (context, state) => state.slidePage(const ProofJobScreen()),
+    ),
   ],
 );

@@ -56,10 +56,6 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
       keyboardType: widget.keyboardType,
       decoration: InputDecoration(
         labelText: widget.label,
-        labelStyle: AppTheme.body16,
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-        ),
         suffixIcon: widget.isPassword
             ? IconButton(
                 icon: Icon(
