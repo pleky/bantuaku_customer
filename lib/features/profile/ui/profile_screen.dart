@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/primary_button.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/secondary_button.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/primary_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -12,18 +9,14 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '/constants/constants.dart';
 import '/constants/languages.dart';
 import '/extensions/build_context_extension.dart';
-import '/extensions/profile_extension.dart';
 import '/routing/routes.dart';
 import '/theme/app_colors.dart';
 import '/theme/app_theme.dart';
 import '/utils/global_loading.dart';
 import '../../../../features/common/ui/widgets/common_dialog.dart';
-import '../model/profile.dart';
 import 'view_model/profile_view_model.dart';
 import 'widgets/avatar.dart';
-import 'widgets/premium_info.dart';
 import 'widgets/profile_item.dart';
-import 'widgets/upgrade_premium_button.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -227,38 +220,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         title: Languages.logOutTitle,
         content: Languages.logOutMessage,
         primaryButtonLabel: Languages.logOut,
-        primaryButtonBackground: AppColors.rambutan100,
-        secondaryButtonLabel: Languages.cancel,
-        primaryButtonAction: () async {
-          try {
-            Global.showLoading(context);
-            // await ref.read(profileViewModelProvider.notifier).signOut();
-          } on AuthException catch (error) {
-            if (context.mounted) {
-              context.showErrorSnackBar(error.message);
-            }
-          } catch (error) {
-            if (context.mounted) {
-              context.showErrorSnackBar(Languages.unexpectedErrorOccurred);
-            }
-          } finally {
-            if (context.mounted) {
-              Global.hideLoading();
-              context.pushReplacement(Routes.welcome);
-            }
-          }
-        },
-      ),
-    );
-  }
-
-  void _deleteAccount(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (dialogContext) => CommonDialog(
-        title: Languages.deleteAccountTitle,
-        content: Languages.deleteAccountMessage,
-        primaryButtonLabel: Languages.deleteAccount,
         primaryButtonBackground: AppColors.rambutan100,
         secondaryButtonLabel: Languages.cancel,
         primaryButtonAction: () async {

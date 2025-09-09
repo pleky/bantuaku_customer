@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/primary_button.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/star_rating.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_colors.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_theme.dart';
-import 'package:flutter_mvvm_riverpod/utils/utils.dart';
-import 'package:path/path.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/primary_button.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/star_rating.dart';
+import 'package:bantuaku_customer/theme/app_colors.dart';
+import 'package:bantuaku_customer/theme/app_theme.dart';
+import 'package:bantuaku_customer/utils/utils.dart';
 
 class WorkersScreen extends StatelessWidget {
   const WorkersScreen({super.key});

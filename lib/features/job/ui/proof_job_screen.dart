@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/constants/languages.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/primary_button.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_colors.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_theme.dart';
+import 'package:bantuaku_customer/constants/languages.dart';
+import 'package:bantuaku_customer/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class ProofJobScreen extends ConsumerStatefulWidget {
   const ProofJobScreen({super.key});

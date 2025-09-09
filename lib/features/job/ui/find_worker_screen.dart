@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/constants/assets.dart';
-import 'package:flutter_mvvm_riverpod/constants/languages.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/secondary_button.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/star_rating.dart';
-import 'package:flutter_mvvm_riverpod/features/job/model/worker_model.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_theme.dart';
+import 'package:bantuaku_customer/constants/assets.dart';
+import 'package:bantuaku_customer/constants/languages.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/secondary_button.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/star_rating.dart';
+import 'package:bantuaku_customer/features/job/model/worker_model.dart';
+import 'package:bantuaku_customer/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 
 final scannedUsersProvider = StateProvider<List<WorkerModel>>((ref) => []);
 
 class FindWorkerScreen extends ConsumerStatefulWidget {
-  const FindWorkerScreen({Key? key}) : super(key: key);
+  const FindWorkerScreen({super.key});
 
   @override
   ConsumerState<FindWorkerScreen> createState() => _FindWorkerScreenState();

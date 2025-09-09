@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1006306964273",
+    "project_id": "bantu-aku-apps",
+    "storage_bucket": "bantu-aku-apps.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006306964273:android:dc33617fd15f79cf023610",
+        "android_client_info": {
+          "package_name": "com.bantuaku.customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006306964273-hgecs5lmgr7qperv31noeu5018g7b50h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA407KgUh1GyMOwzpnqUbdSkO-5rLWU_UU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006306964273-hgecs5lmgr7qperv31noeu5018g7b50h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

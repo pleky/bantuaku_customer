@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_theme.dart';
+import 'package:bantuaku_customer/theme/app_theme.dart';
 
 class CommonStatus extends StatelessWidget {
   const CommonStatus({

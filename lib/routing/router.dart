@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/features/authentication/ui/signup_screen.dart';
-import 'package:flutter_mvvm_riverpod/features/home/ui/home_screen.dart';
-import 'package:flutter_mvvm_riverpod/features/job/ui/create_job_screen.dart';
-import 'package:flutter_mvvm_riverpod/features/job/ui/find_worker_screen.dart';
-import 'package:flutter_mvvm_riverpod/features/job/ui/job_history_detail_screen.dart';
-import 'package:flutter_mvvm_riverpod/features/job/ui/job_list_screen.dart';
-import 'package:flutter_mvvm_riverpod/features/job/ui/proof_job_screen.dart';
-import 'package:flutter_mvvm_riverpod/features/worker/ui/workers_screen.dart';
+import 'package:bantuaku_customer/features/authentication/ui/signup_screen.dart';
+import 'package:bantuaku_customer/features/home/ui/home_screen.dart';
+import 'package:bantuaku_customer/features/job/ui/create_job_screen.dart';
+import 'package:bantuaku_customer/features/job/ui/find_worker_screen.dart';
+import 'package:bantuaku_customer/features/job/ui/job_history_detail_screen.dart';
+import 'package:bantuaku_customer/features/job/ui/job_list_screen.dart';
+import 'package:bantuaku_customer/features/job/ui/proof_job_screen.dart';
+import 'package:bantuaku_customer/features/worker/ui/workers_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/authentication/ui/otp_screen.dart';

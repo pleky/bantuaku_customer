@@ -1,7 +1,7 @@
-import 'package:flutter_mvvm_riverpod/features/authentication/model/auth_res.dart';
-import 'package:flutter_mvvm_riverpod/features/authentication/model/signin_request.dart';
-import 'package:flutter_mvvm_riverpod/features/authentication/model/signup_request.dart';
-import 'package:flutter_mvvm_riverpod/features/authentication/repository/auth_repository.dart';
+import 'package:bantuaku_customer/features/authentication/model/auth_res.dart';
+import 'package:bantuaku_customer/features/authentication/model/signin_request.dart';
+import 'package:bantuaku_customer/features/authentication/model/signup_request.dart';
+import 'package:bantuaku_customer/features/authentication/repository/auth_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../ui/state/authentication_state.dart';

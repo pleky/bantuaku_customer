@@ -1,4 +1,11 @@
+import 'dart:ui';
+
+import 'package:bantuaku_customer/firebase_options.dart';
+import 'package:bantuaku_customer/utils/firebase_notification_service.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,17 +35,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   /// Firebase
-  // await Firebase.initializeApp(
-  //     // options: DefaultFirebaseOptions.currentPlatform,
-  //     );
-  // await FirebaseAnalytics.instance.logAppOpen();
-  // FlutterError.onError = (errorDetails) {
-  //   FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  // };
-  // PlatformDispatcher.instance.onError = (error, stack) {
-  //   FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-  //   return true;
-  // };
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  FirebaseNotificationService().init();
+  await FirebaseAnalytics.instance.logAppOpen();
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
 
   /// Supabase
   // await Supabase.initialize(
@@ -54,12 +63,6 @@ void main() async {
 
   /// Localization
   await EasyLocalization.ensureInitialized();
-
-  /// Google Font
-  // LicenseRegistry.addLicense(() async* {
-  //   final license = await rootBundle.loadString('google_fonts/OFL.txt');
-  //   yield LicenseEntryWithLineBreaks(['google_fonts'], license);
-  // });
 
   runApp(
     ProviderScope(

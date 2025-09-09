@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/extensions/build_context_extension.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/material_ink_well.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/shadow_box.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/status_widget.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_colors.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_theme.dart';
+import 'package:bantuaku_customer/extensions/build_context_extension.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/material_ink_well.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/shadow_box.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/status_widget.dart';
+import 'package:bantuaku_customer/theme/app_colors.dart';
+import 'package:bantuaku_customer/theme/app_theme.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 

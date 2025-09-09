@@ -1,8 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_mvvm_riverpod/features/common/remote/api_client.dart';
-import 'package:flutter_mvvm_riverpod/features/job/model/create_job_dto.dart';
-import 'package:flutter_mvvm_riverpod/features/job/model/skill_response.dart';
+import 'package:bantuaku_customer/features/common/remote/api_client.dart';
+import 'package:bantuaku_customer/features/job/model/create_job_dto.dart';
+import 'package:bantuaku_customer/features/job/model/skill_response.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

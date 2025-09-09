@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/constants/assets.dart';
-import 'package:flutter_mvvm_riverpod/constants/constants.dart';
-import 'package:flutter_mvvm_riverpod/features/authentication/repository/auth_repository.dart';
-import 'package:flutter_mvvm_riverpod/routing/routes.dart';
+import 'package:bantuaku_customer/constants/assets.dart';
+import 'package:bantuaku_customer/constants/constants.dart';
+import 'package:bantuaku_customer/features/authentication/repository/auth_repository.dart';
+import 'package:bantuaku_customer/routing/routes.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/features/home/ui/home_screen.dart';
-import 'package:flutter_mvvm_riverpod/features/job/ui/job_list_screen.dart';
+import 'package:bantuaku_customer/features/home/ui/home_screen.dart';
+import 'package:bantuaku_customer/features/job/ui/job_list_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';

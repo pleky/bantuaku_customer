@@ -1,4 +1,4 @@
-import 'package:flutter_mvvm_riverpod/features/authentication/model/auth_res.dart';
+import 'package:bantuaku_customer/features/authentication/model/auth_res.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'authentication_state.freezed.dart';

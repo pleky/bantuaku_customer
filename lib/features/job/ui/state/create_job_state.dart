@@ -1,4 +1,4 @@
-import 'package:flutter_mvvm_riverpod/features/job/model/skill_response.dart';
+import 'package:bantuaku_customer/features/job/model/skill_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 

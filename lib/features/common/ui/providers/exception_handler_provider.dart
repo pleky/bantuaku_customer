@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/utils/dio_error_handler.dart';
+import 'package:bantuaku_customer/utils/dio_error_handler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 

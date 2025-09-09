@@ -1,9 +1,8 @@
-import 'package:flutter/widgets.dart';
-import 'package:flutter_mvvm_riverpod/features/job/model/create_job_dto.dart';
-import 'package:flutter_mvvm_riverpod/features/job/model/skill_response.dart';
-import 'package:flutter_mvvm_riverpod/features/job/repository/job_repository.dart';
-import 'package:flutter_mvvm_riverpod/features/job/ui/state/create_job_state.dart';
-import 'package:flutter_mvvm_riverpod/utils/location_helper.dart';
+import 'package:bantuaku_customer/features/job/model/create_job_dto.dart';
+import 'package:bantuaku_customer/features/job/model/skill_response.dart';
+import 'package:bantuaku_customer/features/job/repository/job_repository.dart';
+import 'package:bantuaku_customer/features/job/ui/state/create_job_state.dart';
+import 'package:bantuaku_customer/utils/location_helper.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'create_job_view_model.g.dart';

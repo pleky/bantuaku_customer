@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/extensions/string_extension.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_theme.dart';
+import 'package:bantuaku_customer/extensions/string_extension.dart';
+import 'package:bantuaku_customer/theme/app_theme.dart';
 
 class StatusWidget extends StatelessWidget {
   const StatusWidget({

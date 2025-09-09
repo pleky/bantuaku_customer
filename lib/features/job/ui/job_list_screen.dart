@@ -1,17 +1,12 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/constants/assets.dart';
-import 'package:flutter_mvvm_riverpod/constants/languages.dart';
-import 'package:flutter_mvvm_riverpod/extensions/build_context_extension.dart';
-import 'package:flutter_mvvm_riverpod/features/job/model/job_model.dart';
-import 'package:flutter_mvvm_riverpod/features/job/ui/widget/job_card_widget.dart';
-import 'package:flutter_mvvm_riverpod/routing/routes.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_colors.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_theme.dart';
-import 'package:flutter_mvvm_riverpod/utils/utils.dart';
+import 'package:bantuaku_customer/constants/languages.dart';
+import 'package:bantuaku_customer/features/job/model/job_model.dart';
+import 'package:bantuaku_customer/features/job/ui/widget/job_card_widget.dart';
+import 'package:bantuaku_customer/routing/routes.dart';
+import 'package:bantuaku_customer/theme/app_colors.dart';
+import 'package:bantuaku_customer/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class JobListScreen extends ConsumerStatefulWidget {

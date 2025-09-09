@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_colors.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_theme.dart';
+import 'package:bantuaku_customer/theme/app_colors.dart';
+import 'package:bantuaku_customer/theme/app_theme.dart';
 
 class StarRating extends StatefulWidget {
   final double rating; // initial rating
@@ -12,7 +12,7 @@ class StarRating extends StatefulWidget {
   final ValueChanged<double>? onRatingChanged;
 
   const StarRating({
-    Key? key,
+    super.key,
     required this.rating,
     this.starCount = 5,
     this.color = Colors.grey, // default warna sebelum dipilih
@@ -20,7 +20,7 @@ class StarRating extends StatefulWidget {
     this.textStyle,
     this.hideRatingValue = false,
     this.onRatingChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<StarRating> createState() => _StarRatingState();

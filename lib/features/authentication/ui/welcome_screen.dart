@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/constants/languages.dart';
-import 'package:flutter_mvvm_riverpod/features/authentication/model/signin_request.dart';
+import 'package:bantuaku_customer/constants/constants.dart';
+import 'package:bantuaku_customer/constants/languages.dart';
+import 'package:bantuaku_customer/features/authentication/model/signin_request.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_validation/form_validation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '/constants/assets.dart';
 import '/extensions/build_context_extension.dart';
 import '/routing/routes.dart';
@@ -42,13 +44,16 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
     super.dispose();
   }
 
-  void _validateForm() {
+  void _validateForm() async {
+    final sharedPreference = await SharedPreferences.getInstance();
+    final fcmToken = sharedPreference.getString(Constants.fcmTokenKey) ?? '';
     if (_formKey.currentState?.validate() ?? false) {
       final payload = SigninRequest(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim(),
-          role: 'customer',
-          fcmToken: 'your_fcm_token');
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+        role: 'customer',
+        fcmToken: fcmToken,
+      );
       ref.read(authenticationViewModelProvider.notifier).signIn(payload);
     }
   }

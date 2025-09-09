@@ -1,14 +1,13 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/constants/languages.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/primary_button.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/shadow_box.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/star_rating.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/status_widget.dart';
-import 'package:flutter_mvvm_riverpod/features/profile/ui/widgets/avatar.dart';
-import 'package:flutter_mvvm_riverpod/routing/routes.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_colors.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_theme.dart';
+import 'package:bantuaku_customer/constants/languages.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/primary_button.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/shadow_box.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/star_rating.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/status_widget.dart';
+import 'package:bantuaku_customer/features/profile/ui/widgets/avatar.dart';
+import 'package:bantuaku_customer/routing/routes.dart';
+import 'package:bantuaku_customer/theme/app_colors.dart';
+import 'package:bantuaku_customer/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 

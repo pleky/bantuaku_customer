@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_mvvm_riverpod/constants/constants.dart';
-import 'package:flutter_mvvm_riverpod/features/authentication/model/auth_res.dart';
-import 'package:flutter_mvvm_riverpod/features/authentication/model/signin_request.dart';
-import 'package:flutter_mvvm_riverpod/features/authentication/model/signup_request.dart';
-import 'package:flutter_mvvm_riverpod/features/common/remote/api_client.dart';
+import 'package:bantuaku_customer/constants/constants.dart';
+import 'package:bantuaku_customer/features/authentication/model/auth_res.dart';
+import 'package:bantuaku_customer/features/authentication/model/signin_request.dart';
+import 'package:bantuaku_customer/features/authentication/model/signup_request.dart';
+import 'package:bantuaku_customer/features/common/remote/api_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';

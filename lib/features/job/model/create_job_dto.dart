@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'create_job_dto.freezed.dart';

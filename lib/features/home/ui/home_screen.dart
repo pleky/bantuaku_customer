@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/constants/assets.dart';
-import 'package:flutter_mvvm_riverpod/constants/languages.dart';
-import 'package:flutter_mvvm_riverpod/extensions/build_context_extension.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/common_status.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/material_ink_well.dart';
-import 'package:flutter_mvvm_riverpod/features/common/ui/widgets/shadow_box.dart';
-import 'package:flutter_mvvm_riverpod/routing/routes.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_colors.dart';
-import 'package:flutter_mvvm_riverpod/theme/app_theme.dart';
+import 'package:bantuaku_customer/constants/languages.dart';
+import 'package:bantuaku_customer/extensions/build_context_extension.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/common_status.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/shadow_box.dart';
+import 'package:bantuaku_customer/routing/routes.dart';
+import 'package:bantuaku_customer/theme/app_colors.dart';
+import 'package:bantuaku_customer/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:ming_cute_icons/ming_cute_icons.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
