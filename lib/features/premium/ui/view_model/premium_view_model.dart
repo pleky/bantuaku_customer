@@ -115,8 +115,7 @@ class PremiumViewModel extends _$PremiumViewModel {
       }
 
       final product = currentState.products[currentState.selectedIndex];
-      final revenueCatPackage =
-          currentState.availablePackages?.firstWhereOrNull(
+      final revenueCatPackage = currentState.availablePackages?.firstWhereOrNull(
         (p) => p.identifier == product.identifier,
       );
 
@@ -126,7 +125,7 @@ class PremiumViewModel extends _$PremiumViewModel {
       }
 
       final customerInfo = await Purchases.purchasePackage(revenueCatPackage);
-      await ref.read(profileViewModelProvider.notifier).refreshProfile();
+      // await ref.read(profileViewModelProvider.notifier).refreshProfile();
 
       state = AsyncData(currentState.copyWith(
         isPurchaseSuccessfully: customerInfo.entitlements.active.isNotEmpty,
@@ -141,7 +140,7 @@ class PremiumViewModel extends _$PremiumViewModel {
     state = const AsyncValue.loading();
     try {
       final customerInfo = await Purchases.restorePurchases();
-      await ref.read(profileViewModelProvider.notifier).refreshProfile();
+      // await ref.read(profileViewModelProvider.notifier).refreshProfile();
 
       state = AsyncData(state.value!.copyWith(
         isRestoreSuccessfully: customerInfo.entitlements.active.isNotEmpty,

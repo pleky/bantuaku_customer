@@ -14,7 +14,9 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$ProfileState {
-  Profile? get profile;
+  UserModel? get profile;
+  bool get isLoading;
+  String? get errorMessage;
 
   /// Create a copy of ProfileState
   /// with the given fields replaced by the non-null parameter values.
@@ -32,16 +34,21 @@ mixin _$ProfileState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ProfileState &&
-            (identical(other.profile, profile) || other.profile == profile));
+            (identical(other.profile, profile) || other.profile == profile) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, profile);
+  int get hashCode =>
+      Object.hash(runtimeType, profile, isLoading, errorMessage);
 
   @override
   String toString() {
-    return 'ProfileState(profile: $profile)';
+    return 'ProfileState(profile: $profile, isLoading: $isLoading, errorMessage: $errorMessage)';
   }
 }
 
@@ -51,9 +58,9 @@ abstract mixin class $ProfileStateCopyWith<$Res> {
           ProfileState value, $Res Function(ProfileState) _then) =
       _$ProfileStateCopyWithImpl;
   @useResult
-  $Res call({Profile? profile});
+  $Res call({UserModel? profile, bool isLoading, String? errorMessage});
 
-  $ProfileCopyWith<$Res>? get profile;
+  $UserModelCopyWith<$Res>? get profile;
 }
 
 /// @nodoc
@@ -69,12 +76,22 @@ class _$ProfileStateCopyWithImpl<$Res> implements $ProfileStateCopyWith<$Res> {
   @override
   $Res call({
     Object? profile = freezed,
+    Object? isLoading = null,
+    Object? errorMessage = freezed,
   }) {
     return _then(_self.copyWith(
       profile: freezed == profile
           ? _self.profile
           : profile // ignore: cast_nullable_to_non_nullable
-              as Profile?,
+              as UserModel?,
+      isLoading: null == isLoading
+          ? _self.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: freezed == errorMessage
+          ? _self.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -82,12 +99,12 @@ class _$ProfileStateCopyWithImpl<$Res> implements $ProfileStateCopyWith<$Res> {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $ProfileCopyWith<$Res>? get profile {
+  $UserModelCopyWith<$Res>? get profile {
     if (_self.profile == null) {
       return null;
     }
 
-    return $ProfileCopyWith<$Res>(_self.profile!, (value) {
+    return $UserModelCopyWith<$Res>(_self.profile!, (value) {
       return _then(_self.copyWith(profile: value));
     });
   }
@@ -186,13 +203,14 @@ extension ProfileStatePatterns on ProfileState {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(Profile? profile)? $default, {
+    TResult Function(UserModel? profile, bool isLoading, String? errorMessage)?
+        $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _ProfileState() when $default != null:
-        return $default(_that.profile);
+        return $default(_that.profile, _that.isLoading, _that.errorMessage);
       case _:
         return orElse();
     }
@@ -213,12 +231,13 @@ extension ProfileStatePatterns on ProfileState {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(Profile? profile) $default,
+    TResult Function(UserModel? profile, bool isLoading, String? errorMessage)
+        $default,
   ) {
     final _that = this;
     switch (_that) {
       case _ProfileState():
-        return $default(_that.profile);
+        return $default(_that.profile, _that.isLoading, _that.errorMessage);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -238,12 +257,13 @@ extension ProfileStatePatterns on ProfileState {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(Profile? profile)? $default,
+    TResult? Function(UserModel? profile, bool isLoading, String? errorMessage)?
+        $default,
   ) {
     final _that = this;
     switch (_that) {
       case _ProfileState() when $default != null:
-        return $default(_that.profile);
+        return $default(_that.profile, _that.isLoading, _that.errorMessage);
       case _:
         return null;
     }
@@ -253,12 +273,18 @@ extension ProfileStatePatterns on ProfileState {
 /// @nodoc
 @JsonSerializable()
 class _ProfileState implements ProfileState {
-  const _ProfileState({this.profile});
+  const _ProfileState(
+      {this.profile, this.isLoading = false, this.errorMessage});
   factory _ProfileState.fromJson(Map<String, dynamic> json) =>
       _$ProfileStateFromJson(json);
 
   @override
-  final Profile? profile;
+  final UserModel? profile;
+  @override
+  @JsonKey()
+  final bool isLoading;
+  @override
+  final String? errorMessage;
 
   /// Create a copy of ProfileState
   /// with the given fields replaced by the non-null parameter values.
@@ -280,16 +306,21 @@ class _ProfileState implements ProfileState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ProfileState &&
-            (identical(other.profile, profile) || other.profile == profile));
+            (identical(other.profile, profile) || other.profile == profile) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, profile);
+  int get hashCode =>
+      Object.hash(runtimeType, profile, isLoading, errorMessage);
 
   @override
   String toString() {
-    return 'ProfileState(profile: $profile)';
+    return 'ProfileState(profile: $profile, isLoading: $isLoading, errorMessage: $errorMessage)';
   }
 }
 
@@ -301,10 +332,10 @@ abstract mixin class _$ProfileStateCopyWith<$Res>
       __$ProfileStateCopyWithImpl;
   @override
   @useResult
-  $Res call({Profile? profile});
+  $Res call({UserModel? profile, bool isLoading, String? errorMessage});
 
   @override
-  $ProfileCopyWith<$Res>? get profile;
+  $UserModelCopyWith<$Res>? get profile;
 }
 
 /// @nodoc
@@ -321,12 +352,22 @@ class __$ProfileStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   $Res call({
     Object? profile = freezed,
+    Object? isLoading = null,
+    Object? errorMessage = freezed,
   }) {
     return _then(_ProfileState(
       profile: freezed == profile
           ? _self.profile
           : profile // ignore: cast_nullable_to_non_nullable
-              as Profile?,
+              as UserModel?,
+      isLoading: null == isLoading
+          ? _self.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: freezed == errorMessage
+          ? _self.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -334,12 +375,12 @@ class __$ProfileStateCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $ProfileCopyWith<$Res>? get profile {
+  $UserModelCopyWith<$Res>? get profile {
     if (_self.profile == null) {
       return null;
     }
 
-    return $ProfileCopyWith<$Res>(_self.profile!, (value) {
+    return $UserModelCopyWith<$Res>(_self.profile!, (value) {
       return _then(_self.copyWith(profile: value));
     });
   }

@@ -55,5 +55,8 @@
   "total_payment": "Total Pembayaran",
   "service_fee": "Biaya Layanan",
   "tax": "Pajak",
-  "back": "Kembali"
+  "back": "Kembali",
+  "budget": "Anggaran (IDR)",
+  "address_helper": "Lengkapi alamat dengan detail agar mudah ditemukan",
+  "search_location": "Cari Lokasi"
 }

@@ -2,6 +2,7 @@ import 'package:bantuaku_customer/features/authentication/model/auth_res.dart';
 import 'package:bantuaku_customer/features/authentication/model/signin_request.dart';
 import 'package:bantuaku_customer/features/authentication/model/signup_request.dart';
 import 'package:bantuaku_customer/features/authentication/repository/auth_repository.dart';
+import 'package:bantuaku_customer/features/profile/repository/profile_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../ui/state/authentication_state.dart';
@@ -45,8 +46,28 @@ class AuthenticationViewModel extends _$AuthenticationViewModel {
         isAuthenticated: true,
       ),
     );
+
+    // fetchDetailUser();
     ref.read(authRepositoryProvider).setAccessToken(authResponse!.accessToken);
     ref.read(authRepositoryProvider).setLoginStatus(true);
+  }
+
+  // void fetchDetailUser() async {
+  //   final repo = ref.read(profileRepositoryProvider);
+  //   await repo.fetchDetailUser();
+  // }
+
+  Future<void> signOut() async {
+    state = const AsyncValue.loading();
+    final authRepo = ref.read(authRepositoryProvider);
+    final result = await AsyncValue.guard(authRepo.logout);
+
+    if (result is AsyncError) {
+      state = AsyncError(result.error.toString(), StackTrace.current);
+      return;
+    }
+
+    state = const AsyncData(AuthenticationState());
   }
 }
 
@@ -102,18 +123,7 @@ class AuthenticationViewModel extends _$AuthenticationViewModel {
 //     handleResult(result);
 //   }
 
-//   Future<void> signOut() async {
-//     state = const AsyncValue.loading();
-//     final authRepo = ref.read(authenticationRepositoryProvider);
-//     final result = await AsyncValue.guard(authRepo.signOut);
-
-//     if (result is AsyncError) {
-//       state = AsyncError(result.error.toString(), StackTrace.current);
-//       return;
-//     }
-
-//     state = const AsyncData(AuthenticationState());
-//   }
+  
 
   // void handleResult(AsyncValue result) async {
   //   debugPrint(

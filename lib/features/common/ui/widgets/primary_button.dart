@@ -12,6 +12,7 @@ class PrimaryButton extends StatelessWidget {
   final Color? backgroundColor;
   final double verticalPadding;
   final bool isEnable;
+  final int borderRadius;
 
   const PrimaryButton({
     super.key,
@@ -22,6 +23,7 @@ class PrimaryButton extends StatelessWidget {
     this.backgroundColor,
     this.verticalPadding = 14,
     this.isEnable = true,
+    this.borderRadius = 24,
   });
 
   @override
@@ -33,11 +35,11 @@ class PrimaryButton extends StatelessWidget {
       height: 48,
       decoration: BoxDecoration(
         color: isEnable ? bgColor : AppColors.mono40,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(borderRadius.toDouble()),
       ),
       child: MaterialInkWell(
         onTap: isEnable ? onPressed : null,
-        radius: 24,
+        radius: borderRadius.toDouble(),
         child: Container(
           width: double.infinity,
           alignment: Alignment.center,

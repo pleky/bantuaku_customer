@@ -83,3 +83,19 @@ class FirebaseNotificationService {
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await FirebaseNotificationService()._showNotification(message);
 }
+
+Future<void> deleteFcmToken() async {
+  final sharedPreference = await SharedPreferences.getInstance();
+  await sharedPreference.remove(Constants.fcmTokenKey);
+  await FirebaseMessaging.instance.deleteToken();
+}
+
+Future<String?> generateNewFCM() async {
+  final newToken = await FirebaseMessaging.instance.getToken();
+  debugPrint('Generated new FCM token: $newToken');
+  final sharedPreference = await SharedPreferences.getInstance();
+  if (newToken != null) {
+    await sharedPreference.setString(Constants.fcmTokenKey, newToken);
+  }
+  return newToken;
+}

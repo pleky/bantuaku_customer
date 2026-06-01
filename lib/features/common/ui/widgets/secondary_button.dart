@@ -29,7 +29,7 @@ class SecondaryButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final txtColor = isDarkMode ? AppColors.schema103 : AppColors.mono100;
-    final bgColor = isDarkMode ? AppColors.mono0 : AppColors.mono100;
+    final bgColor = isDarkMode ? AppColors.mono0 : AppColors.mono20;
     return Container(
       height: 48,
       decoration: BoxDecoration(

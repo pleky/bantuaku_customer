@@ -81,6 +81,25 @@ class ApiClient {
     }
   }
 
+  Future<T> put<T>(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+  }) async {
+    try {
+      final response = await _dio.put<T>(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+      );
+      return response.data as T;
+    } on DioException catch (e) {
+      throw _handleError(e);
+    }
+  }
+
   Exception _handleError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
@@ -174,8 +193,6 @@ class _LoggingInterceptor extends Interceptor {
 class _AuthInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    // Add your authentication logic here, e.g., adding an auth token to headers
-    // options.headers['Authorization'] = 'Bearer YOUR_TOKEN';
     final prefs = await SharedPreferences.getInstance();
     final isLoggedIn = prefs.getBool(Constants.isLoginKey) ?? false;
     if (isLoggedIn) {

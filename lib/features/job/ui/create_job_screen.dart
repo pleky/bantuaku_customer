@@ -1,3 +1,4 @@
+import 'package:bantuaku_customer/features/common/ui/widgets/google_maps_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -85,8 +86,10 @@ class _State extends ConsumerState<CreateJobScreen> {
   Widget build(BuildContext context) {
     _initListeners();
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SafeArea(
           child: FormBuilder(
             key: _formKey,
             child: Column(
@@ -94,145 +97,160 @@ class _State extends ConsumerState<CreateJobScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  child: FlutterMap(
-                    options: MapOptions(
-                      initialCenter: LatLng(-6.200000, 106.816666), // jakarta
-                      initialZoom: 5,
-                    ),
-                    children: [
-                      openStreetMapTileLayer,
-                    ],
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: GoogleMapsWidget(
+                    onLocationSelected: (location, address) {
+                      _formKey.currentState?.fields['address']?.didChange(address);
+                      _formKey.currentState?.fields['latitude']?.didChange(location.latitude);
+                      _formKey.currentState?.fields['longitude']?.didChange(location.longitude);
+                    },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Visibility(
-                        visible: widget.isSkillActive,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              Languages.qualifications,
-                              style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                Expanded(
+                  child: SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        spacing: 16,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Visibility(
+                            visible: widget.isSkillActive,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                FormBuilderSearchableDropdown<SkillResponse>(
+                                  name: "qualification",
+                                  decoration: InputDecoration(
+                                    label: Text(
+                                      Languages.qualifications,
+                                      style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                                    ),
+                                  ),
+                                  compareFn: (item1, item2) => item1.id == item2.id,
+                                  asyncItems: (filter, loadProps) async {
+                                    final result = await ref.read(createJobViewModelProvider.notifier).fetchSkills();
+                                    return result;
+                                  },
+                                  itemAsString: (item) => item.namaSkill,
+                                  validator: widget.isSkillActive
+                                      ? FormBuilderValidators.compose([
+                                          FormBuilderValidators.required(),
+                                        ])
+                                      : null,
+                                ),
+                              ],
                             ),
-                            FormBuilderSearchableDropdown<SkillResponse>(
-                              name: "qualification",
-                              compareFn: (item1, item2) => item1.id == item2.id,
-                              asyncItems: (filter, loadProps) async {
-                                final result = await ref.read(createJobViewModelProvider.notifier).fetchSkills();
-                                return result;
-                              },
-                              itemAsString: (item) => item.namaSkill,
-                              validator: widget.isSkillActive
-                                  ? FormBuilderValidators.compose([
-                                      FormBuilderValidators.required(),
-                                    ])
-                                  : null,
+                          ),
+                          FormBuilderTextField(
+                            decoration: InputDecoration(
+                              label: Text(
+                                Languages.address,
+                                style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                              ),
+                              helperText: Languages.addressHelper,
+                              helperStyle: AppTheme.body12.copyWith(color: context.secondaryTextColor),
                             ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        Languages.jobLocation,
-                        style: AppTheme.body14.copyWith(color: context.primaryTextColor),
-                      ),
-                      SizedBox(height: 4),
-                      FormBuilderTextField(
-                        maxLines: 3,
-                        name: "address",
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                        ]),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        Languages.title,
-                        style: AppTheme.body14.copyWith(color: context.primaryTextColor),
-                      ),
-                      FormBuilderTextField(
-                        name: 'title',
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                        ]),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        Languages.description,
-                        style: AppTheme.body14.copyWith(color: context.primaryTextColor),
-                      ),
-                      FormBuilderTextField(
-                        name: "description",
-                        maxLines: 3,
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                        ]),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        Languages.photo,
-                        style: AppTheme.body14.copyWith(color: context.primaryTextColor),
-                      ),
-                      FormBuilderImagePicker(
-                        name: "image_path[]",
-                        maxImages: 3,
-                        icon: Icons.image,
-                        iconColor: AppColors.mono60,
-                        backgroundColor: AppColors.mono40,
-                        transformImageWidget: (context, image) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0), // 👈 Add spacing between images
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: image,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            name: "address",
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                            ]),
+                          ),
+                          FormBuilderTextField(
+                            decoration: InputDecoration(
+                              label: Text(
+                                Languages.title,
+                                style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                              ),
                             ),
-                          );
-                        },
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                        ]),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "Budget (IDR)",
-                        style: AppTheme.body14.copyWith(color: context.primaryTextColor),
-                      ),
-                      FormBuilderTextField(
-                        name: "budget",
-                        keyboardType: TextInputType.number,
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                          FormBuilderValidators.minLength(1),
-                        ]),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        Languages.duration,
-                        style: AppTheme.body14.copyWith(color: context.primaryTextColor),
-                      ),
-                      FormBuilderDurationPicker(
-                        name: 'job_duration',
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                        ]),
-                      ),
-                      SizedBox(height: 24),
-                      PrimaryButton(
-                        onPressed: () {
-                          FocusScope.of(context).unfocus();
-                          if (_formKey.currentState?.saveAndValidate() ?? false) {
-                            final value = _formKey.currentState?.value;
+                            name: 'title',
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                            ]),
+                          ),
+                          FormBuilderTextField(
+                            decoration: InputDecoration(
+                              label: Text(
+                                Languages.description,
+                                style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                              ),
+                            ),
+                            name: "description",
+                            maxLines: null,
+                            keyboardType: TextInputType.multiline,
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                            ]),
+                          ),
+                          FormBuilderImagePicker(
+                            decoration: InputDecoration(
+                              label: Text(
+                                Languages.photo,
+                                style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                              ),
+                            ),
+                            name: "image_path[]",
+                            maxImages: 3,
+                            icon: Icons.image,
+                            iconColor: AppColors.mono60,
+                            backgroundColor: AppColors.mono40,
+                            transformImageWidget: (context, image) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0), // 👈 Add spacing between images
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: image,
+                                ),
+                              );
+                            },
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                            ]),
+                          ),
+                          FormBuilderTextField(
+                            name: "budget",
+                            decoration: InputDecoration(
+                              label: Text(
+                                Languages.budget,
+                                style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                              FormBuilderValidators.minLength(1),
+                            ]),
+                          ),
+                          FormBuilderDurationPicker(
+                            decoration: InputDecoration(
+                              label: Text(
+                                Languages.duration,
+                                style: AppTheme.body14.copyWith(color: context.primaryTextColor),
+                              ),
+                            ),
+                            name: 'job_duration',
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                            ]),
+                          ),
+                          PrimaryButton(
+                            borderRadius: 8,
+                            onPressed: () {
+                              FocusScope.of(context).unfocus();
+                              if (_formKey.currentState?.saveAndValidate() ?? false) {
+                                final value = _formKey.currentState?.value;
 
-                            _handleSubmit(value);
-                          }
-                        },
-                        text: Languages.createJob,
+                                _handleSubmit(value);
+                              }
+                            },
+                            text: Languages.createJob,
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],

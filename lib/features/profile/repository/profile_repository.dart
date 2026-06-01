@@ -1,5 +1,10 @@
 import 'dart:convert';
 
+import 'package:bantuaku_customer/features/common/model/user_model.dart';
+import 'package:bantuaku_customer/features/common/remote/api_client.dart';
+import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,38 +17,49 @@ part 'profile_repository.g.dart';
 
 @Riverpod(keepAlive: true)
 ProfileRepository profileRepository(Ref ref) {
-  return ProfileRepository();
+  final apiClient = ref.watch(apiClientProvider);
+  return ProfileRepository(apiClient);
 }
 
 class ProfileRepository {
-  const ProfileRepository();
+  final ApiClient apiClient;
 
-  Future<Profile?> get() async {
-    // TODO: temporary get profile from local
-    final prefs = await SharedPreferences.getInstance();
-    final profileStr = prefs.getString(Constants.profileKey);
-    if (profileStr == null) return null;
+  const ProfileRepository(this.apiClient);
 
-    final profile = Profile.fromJson(jsonDecode(profileStr));
-    return profile;
+  Future<UserModel> fetchDetailUser() async {
+    try {
+      final response = await apiClient.get<Map<String, dynamic>>(
+        '/customer',
+        options: Options(
+          contentType: Headers.formUrlEncodedContentType,
+        ),
+      );
+      final user = UserModel.fromJson(response);
+      debugPrint('${Constants.tag} [AuthRepository.fetchDetailUser] Fetched user: ${user.toJson()}');
+      return user;
+    } on BadRequestException catch (e) {
+      debugPrint('${Constants.tag} [AuthRepository.fetchDetailUser] BadRequestExceptions: ${e.message}}');
+      throw e.message;
+    } catch (e) {
+      debugPrint('${Constants.tag} [AuthRepository.fetchDetailUser] ERROR: $e');
+      throw Exception('Unexpected error occurred during fetching user details');
+    }
   }
 
-  Future<void> update(Profile profile) async {
-    // TODO: temporary save profile to local
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString(Constants.profileKey, jsonEncode(profile.toJson()));
-    return;
-  }
-
-  Future<bool> isShowPremium() async {
-    final prefs = await SharedPreferences.getInstance();
-    final day = prefs.getString(Constants.lastDayShowPremiumKey);
-    if (day == null) return true;
-    return Utils.today().difference(DateTime.parse(day)).inDays >= 3;
-  }
-
-  Future<void> setIsShowPremium() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(Constants.lastDayShowPremiumKey, Utils.today().toIso8601String());
+  Future<bool> updateAddress(String address) async {
+    try {
+      await apiClient.put(
+        '/customer/update',
+        data: {
+          'address': address,
+        },
+      );
+      return true;
+    } on BadRequestException catch (e) {
+      throw e.message;
+    } catch (e) {
+      debugPrint('${Constants.tag} [ProfileRepository.updateAddress] error: $e');
+      return false;
+    }
   }
 }

@@ -138,6 +138,9 @@
   "total_payment": "Total Payment",
   "service_fee": "Service Fee",
   "tax": "Tax",
-  "back": "Back"
+  "back": "Back",
+  "budget": "Budget (IDR)",
+  "address_helper": "Complete the address with details to make it easier to find",
+  "search_location": "Search location"
   
 }

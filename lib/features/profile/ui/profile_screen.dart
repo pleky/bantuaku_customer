@@ -1,3 +1,6 @@
+import 'package:bantuaku_customer/features/authentication/ui/view_model/authentication_view_model.dart';
+import 'package:bantuaku_customer/features/common/model/user_model.dart';
+import 'package:bantuaku_customer/features/home/ui/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bantuaku_customer/features/common/ui/widgets/primary_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -60,17 +63,18 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     offset: Offset(0, -48),
                     child: Column(
                       children: [
-                        Avatar(url: profile?.avatar),
+                        // random avatar
+                        Avatar(url: "https://i.pravatar.cc/150?u=Abc123"),
                         const SizedBox(height: 16),
                         Center(
                           child: Text(
-                            profile?.name ?? Constants.defaultName,
+                            profile?.fullName ?? Constants.defaultName,
                             style: AppTheme.title24,
                           ),
                         ),
                         Center(
                           child: Text(
-                            profile?.email ?? 'rendrasaputra@gmail.com',
+                            profile?.email ?? '',
                             style: AppTheme.body14.copyWith(
                               color: context.secondaryTextColor,
                             ),
@@ -78,7 +82,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         ),
                         Center(
                           child: Text(
-                            profile?.email ?? '+6285933008404',
+                            profile?.phone ?? '',
                             style: AppTheme.body14.copyWith(
                               color: context.secondaryTextColor,
                             ),
@@ -91,7 +95,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     offset: Offset(0, -20),
                     child: PrimaryButton(
                       text: "Edit Profile",
-                      onPressed: () {},
+                      onPressed: () => _gotoEditProfile(profile),
                     ),
                   ),
                 ],
@@ -203,6 +207,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     );
   }
 
+  void _gotoEditProfile(UserModel? profile) {
+    context.push(Routes.accountInformation, extra: profile);
+  }
+
   void _getPackageInfo() {
     PackageInfo.fromPlatform().then((info) {
       setState(() {
@@ -225,7 +233,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         primaryButtonAction: () async {
           try {
             Global.showLoading(context);
-            // await ref.read(profileViewModelProvider.notifier).signOut();
+            await ref.read(authenticationViewModelProvider.notifier).signOut();
           } on AuthException catch (error) {
             if (context.mounted) {
               context.showErrorSnackBar(error.message);

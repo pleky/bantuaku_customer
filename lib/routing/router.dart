@@ -1,3 +1,4 @@
+import 'package:bantuaku_customer/features/common/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bantuaku_customer/features/authentication/ui/signup_screen.dart';
 import 'package:bantuaku_customer/features/home/ui/home_screen.dart';
@@ -118,8 +119,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.accountInformation,
       pageBuilder: (context, state) {
-        final profile = state.extra as Profile;
-        return state.slidePage(AccountInfoScreen(originalProfile: profile));
+        final profile = state.extra as UserModel;
+        return state.slidePage(AccountInfoScreen(
+          originalProfile: profile,
+        ));
       },
     ),
     GoRoute(

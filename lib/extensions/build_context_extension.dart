@@ -55,6 +55,12 @@ extension ThemeModeExtension on BuildContext {
               color: AppColors.schema103,
             ),
           ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: AppColors.mono20,
+            ),
+          ),
         ),
         textTheme: Theme.of(this).textTheme.apply(
               bodyColor: AppColors.mono100,

@@ -1,3 +1,4 @@
+import 'package:bantuaku_customer/utils/firebase_notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:bantuaku_customer/constants/constants.dart';
 import 'package:bantuaku_customer/constants/languages.dart';
@@ -45,9 +46,10 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
   }
 
   void _validateForm() async {
-    final sharedPreference = await SharedPreferences.getInstance();
-    final fcmToken = sharedPreference.getString(Constants.fcmTokenKey) ?? '';
     if (_formKey.currentState?.validate() ?? false) {
+      generateNewFCM();
+      final sharedPreference = await SharedPreferences.getInstance();
+      final fcmToken = sharedPreference.getString(Constants.fcmTokenKey) ?? '';
       final payload = SigninRequest(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),

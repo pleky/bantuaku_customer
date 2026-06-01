@@ -1,3 +1,9 @@
+import 'package:bantuaku_customer/constants/constants.dart';
+import 'package:bantuaku_customer/features/common/ui/widgets/common_shimmer.dart';
+import 'package:bantuaku_customer/features/home/ui/state/home_state.dart';
+import 'package:bantuaku_customer/features/home/ui/view_model/home_view_model.dart';
+import 'package:bantuaku_customer/features/profile/ui/view_model/profile_view_model.dart';
+import 'package:bantuaku_customer/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:bantuaku_customer/constants/languages.dart';
 import 'package:bantuaku_customer/extensions/build_context_extension.dart';
@@ -6,9 +12,12 @@ import 'package:bantuaku_customer/features/common/ui/widgets/shadow_box.dart';
 import 'package:bantuaku_customer/routing/routes.dart';
 import 'package:bantuaku_customer/theme/app_colors.dart';
 import 'package:bantuaku_customer/theme/app_theme.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +29,8 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _State extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(profileViewModelProvider);
+
     return Scaffold(
       backgroundColor: AppColors.whiteBg,
       body: SafeArea(
@@ -38,7 +49,11 @@ class _State extends ConsumerState<HomeScreen> {
               top: MediaQuery.of(context).size.height * 0.2,
               right: 0,
               left: 0,
-              child: Content(),
+              child: Content(
+                name: state.value?.profile?.fullName ?? "",
+                balance: state.value?.profile?.balance ?? "0.0",
+                isLoading: state.isLoading,
+              ),
             ),
           ],
         ),
@@ -50,10 +65,24 @@ class _State extends ConsumerState<HomeScreen> {
 class Content extends StatelessWidget {
   const Content({
     super.key,
+    required this.name,
+    required this.isLoading,
+    required this.balance,
   });
+
+  final String name;
+  final bool isLoading;
+  final String balance;
+
+  void _copyFCMToken() async {
+    final sharedPreference = await SharedPreferences.getInstance();
+    final fcmToken = sharedPreference.getString(Constants.fcmTokenKey) ?? '';
+    await Clipboard.setData(ClipboardData(text: fcmToken));
+  }
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("Content build with name: $name, isLoading: $isLoading");
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -65,7 +94,12 @@ class Content extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Hi, Ahmad Baskuri", style: AppTheme.title16.copyWith(color: context.primaryTextColor)),
+                isLoading
+                    ? CommonShimmer(child: Container(width: 100, height: 20, color: AppColors.mono0))
+                    : Text(
+                        name,
+                        style: AppTheme.title16.copyWith(color: context.primaryTextColor),
+                      ),
                 const SizedBox(height: 8),
                 Row(
                   children: [
@@ -76,10 +110,12 @@ class Content extends StatelessWidget {
                           "Saldo Anda",
                           style: AppTheme.subtitle12.copyWith(color: context.secondaryTextColor),
                         ),
-                        Text(
-                          "Rp120.000",
-                          style: AppTheme.title14.copyWith(color: context.primaryTextColor),
-                        ),
+                        isLoading
+                            ? CommonShimmer(child: Container(width: 150, height: 24, color: AppColors.mono0))
+                            : Text(
+                                Utils.formatRupiah(double.tryParse(balance) ?? 0.0),
+                                style: AppTheme.title14.copyWith(color: context.primaryTextColor),
+                              ),
                       ],
                     ),
                     const Spacer(),
@@ -97,15 +133,18 @@ class Content extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: context.primaryBackgroundColor,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Icon(
-                            HugeIcons.strokeRoundedTransactionHistory,
-                            color: context.primaryTextColor,
+                        GestureDetector(
+                          onTap: _copyFCMToken,
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: context.primaryBackgroundColor,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Icon(
+                              HugeIcons.strokeRoundedTransactionHistory,
+                              color: context.primaryTextColor,
+                            ),
                           ),
                         ),
                       ],

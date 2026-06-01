@@ -10,10 +10,14 @@ _ProfileState _$ProfileStateFromJson(Map<String, dynamic> json) =>
     _ProfileState(
       profile: json['profile'] == null
           ? null
-          : Profile.fromJson(json['profile'] as Map<String, dynamic>),
+          : UserModel.fromJson(json['profile'] as Map<String, dynamic>),
+      isLoading: json['isLoading'] as bool? ?? false,
+      errorMessage: json['errorMessage'] as String?,
     );
 
 Map<String, dynamic> _$ProfileStateToJson(_ProfileState instance) =>
     <String, dynamic>{
       'profile': instance.profile,
+      'isLoading': instance.isLoading,
+      'errorMessage': instance.errorMessage,
     };

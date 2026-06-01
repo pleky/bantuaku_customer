@@ -1,5 +1,8 @@
+import 'package:bantuaku_customer/features/common/model/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -17,11 +20,10 @@ import 'view_model/profile_view_model.dart';
 import 'widgets/avatar.dart';
 
 class AccountInfoScreen extends ConsumerStatefulWidget {
-  final Profile originalProfile;
-
+  final UserModel originalProfile;
   const AccountInfoScreen({
-    super.key,
     required this.originalProfile,
+    super.key,
   });
 
   @override
@@ -29,114 +31,167 @@ class AccountInfoScreen extends ConsumerStatefulWidget {
 }
 
 class _AccountInfoScreenState extends ConsumerState<AccountInfoScreen> {
-  late final TextEditingController nameController;
-  String? avatar;
-  String? name;
+  final _formKey = GlobalKey<FormBuilderState>();
+  bool _hasChanges = false;
+  late Map<String, dynamic> _initialValues;
 
   @override
   void initState() {
     super.initState();
-    nameController = TextEditingController(text: widget.originalProfile.name);
-    avatar = widget.originalProfile.avatar;
-    name = widget.originalProfile.name;
-
-    nameController.addListener(_updateName);
+    _initialValues = {
+      "username": widget.originalProfile.username,
+      "phone": widget.originalProfile.phone,
+      "email": widget.originalProfile.email,
+      "address": widget.originalProfile.address,
+    };
   }
 
   Future<void> _selectImage() async {
-    final result =
-        await ref.read(profileViewModelProvider.notifier).selectImage(context);
-    setState(() => avatar = result);
-  }
-
-  void _updateName() {
-    setState(() => name = nameController.text);
+    // final result = await ref.read(profileViewModelProvider.notifier).selectImage(context);
+    // setState(() => avatar = result);
   }
 
   @override
   void dispose() {
-    nameController.removeListener(_updateName);
-    nameController.dispose();
     super.dispose();
+  }
+
+  void _checkForChanges() {
+    final currentState = _formKey.currentState;
+    if (currentState != null) {
+      final currentAddress = currentState.value['address']?.toString().trim() ?? "";
+      final initialAddress = _initialValues['address']?.toString().trim() ?? "";
+
+      setState(() {
+        _hasChanges = currentAddress != initialAddress;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          CommonHeader(header: Languages.accountInformation),
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Avatar(url: avatar ?? widget.originalProfile.avatar),
-                    const SizedBox(width: 16),
-                    SizedBox(
-                      width: 120,
-                      child: SecondaryButton(
-                        text: Languages.selectAvatar,
-                        onPressed: _selectImage,
-                      ),
+      body: FormBuilder(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        initialValue: {
+          "username": widget.originalProfile.username,
+          "phone": widget.originalProfile.phone,
+          "email": widget.originalProfile.email,
+          "address": widget.originalProfile.address,
+        },
+        key: _formKey,
+        child: Column(
+          children: [
+            CommonHeader(header: Languages.accountInformation),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+                children: [
+                  Center(
+                    child: Stack(
+                      children: [
+                        SizedBox(
+                          width: 128,
+                          height: 128,
+                          child: Avatar(
+                            url:
+                                "https://ui-avatars.com/api/?name=${widget.originalProfile.username}&background=random&size=128",
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: IconButton(
+                            onPressed: _selectImage,
+                            icon: const Icon(Icons.camera_alt),
+                            style: IconButton.styleFrom(
+                              backgroundColor: context.primaryBackgroundColor,
+                              foregroundColor: context.primaryTextColor,
+                              shape: StadiumBorder(),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                const SizedBox(height: 32),
-                Text(Languages.email, style: AppTheme.body12),
-                const SizedBox(height: 6),
-                Text(
-                  widget.originalProfile.email.orEmpty(),
-                  style: AppTheme.body16,
-                ),
-                const SizedBox(height: 32),
-                CommonTextFormField(
-                  label: Languages.name,
-                  controller: nameController,
-                ),
-              ],
+                  ),
+                  const SizedBox(height: 32),
+                  FormBuilderTextField(
+                    name: "username",
+                    enabled: false,
+                    decoration: InputDecoration(
+                      labelText: "Username",
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  FormBuilderTextField(
+                    name: "phone",
+                    enabled: false,
+                    decoration: InputDecoration(
+                      labelText: Languages.phoneNumber,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  FormBuilderTextField(
+                    name: "email",
+                    enabled: false,
+                    decoration: InputDecoration(
+                      labelText: Languages.email,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  FormBuilderTextField(
+                    name: "address",
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(),
+                      FormBuilderValidators.maxLength(255),
+                    ]),
+                    keyboardType: TextInputType.multiline,
+                    onChanged: (_) => _checkForChanges(),
+                    decoration: InputDecoration(
+                      labelText: Languages.address,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 24,
-              right: 24,
-              bottom: 32,
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 24,
+                right: 24,
+                bottom: 32,
+              ),
+              child: PrimaryButton(
+                text: Languages.confirm,
+                isEnable: _formKey.currentState?.isValid == true,
+                onPressed: () async {
+                  try {
+                    Global.showLoading(context);
+                    final address = _formKey.currentState?.fields['address']?.value?.toString().trim();
+                    await ref.read(profileViewModelProvider.notifier).updateAddress(address!);
+                    setState(() {
+                      _hasChanges = false;
+                    });
+
+                    if (context.mounted) {
+                      context.showSuccessSnackBar("Update successful");
+                      FocusScope.of(context).unfocus();
+                    }
+                  } on PostgrestException catch (error) {
+                    if (context.mounted) {
+                      context.showErrorSnackBar(error.message);
+                    }
+                  } catch (error) {
+                    if (context.mounted) {
+                      context.showErrorSnackBar(Languages.unexpectedErrorOccurred);
+                    }
+                  } finally {
+                    Global.hideLoading();
+                  }
+                },
+              ),
             ),
-            child: PrimaryButton(
-              text: Languages.confirm,
-              isEnable: avatar != widget.originalProfile.avatar ||
-                  name != widget.originalProfile.name,
-              onPressed: () async {
-                try {
-                  Global.showLoading(context);
-                  await ref
-                      .read(profileViewModelProvider.notifier)
-                      .updateProfile(
-                        avatar: avatar,
-                        name: name,
-                      );
-                  if (context.mounted) {
-                    context.pop();
-                  }
-                } on PostgrestException catch (error) {
-                  if (context.mounted) {
-                    context.showErrorSnackBar(error.message);
-                  }
-                } catch (error) {
-                  if (context.mounted) {
-                    context
-                        .showErrorSnackBar(Languages.unexpectedErrorOccurred);
-                  }
-                } finally {
-                  Global.hideLoading();
-                }
-              },
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

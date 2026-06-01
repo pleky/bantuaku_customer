@@ -140,4 +140,7 @@ class Languages {
 
   static String rateService = "rate_service".tr();
   static String back = "back".tr();
+  static String budget = "budget".tr();
+  static String addressHelper = "address_helper".tr();
+  static String searchLocation = "search_location".tr();
 }

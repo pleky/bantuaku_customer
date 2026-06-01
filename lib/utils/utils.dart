@@ -26,7 +26,7 @@ class Utils {
     return DateTime(today.year, today.month, today.day);
   }
 
-  static String formatRupiah(int amount) {
+  static String formatRupiah(num amount) {
     final formatter = NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ');
     return formatter.format(amount);
   }
