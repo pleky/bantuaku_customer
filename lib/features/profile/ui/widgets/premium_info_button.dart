@@ -1,8 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../extensions/date_time_extension.dart';
-import '../../../../generated/locale_keys.g.dart';
 import '../../../../theme/app_colors.dart';
 import '../../../../theme/app_theme.dart';
 
@@ -28,7 +26,7 @@ class PremiumInfoButton extends StatelessWidget {
       ),
       child: expiryDate == null
           ? Text(
-              LocaleKeys.premiumLifetime.tr(),
+              "Expairy date not found",
               style: AppTheme.title14.copyWith(
                 color: AppColors.mono0,
               ),
@@ -37,14 +35,14 @@ class PremiumInfoButton extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  LocaleKeys.premium.tr(),
+                  "Premium until",
                   style: AppTheme.title14.copyWith(
                     color: AppColors.mono0,
                   ),
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  LocaleKeys.until.tr(),
+                  "until",
                   style: AppTheme.body14.copyWith(
                     color: AppColors.mono0,
                   ),

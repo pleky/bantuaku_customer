@@ -10,7 +10,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../constants/assets.dart';
 import '../../../constants/constants.dart';
 import '../../../extensions/build_context_extension.dart';
-import '../../../generated/locale_keys.g.dart';
 import '../../../main.dart';
 import '../../../routing/routes.dart';
 import '../../../theme/app_theme.dart';
@@ -42,8 +41,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     _emailController = TextEditingController();
     _emailController.addListener(_validateEmail);
 
-    _authSubscription =
-        supabase.auth.onAuthStateChange.listen(_onAuthStateChange);
+    // _authSubscription =
+    //     supabase.auth.onAuthStateChange.listen(_onAuthStateChange);
   }
 
   @override
@@ -57,13 +56,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   void _onAuthStateChange(AuthState data) async {
     final AuthChangeEvent event = data.event;
     final Session? session = data.session;
-    debugPrint(
-        '${Constants.tag} [RegisterScreen._onAuthStateChange] Auth change: $event, session: $session');
+    debugPrint('${Constants.tag} [RegisterScreen._onAuthStateChange] Auth change: $event, session: $session');
 
     if (event == AuthChangeEvent.signedIn && session != null) {
-      ref
-          .read(authenticationViewModelProvider.notifier)
-          .updateProfile(session.user);
+      // ref.read(authenticationViewModelProvider.notifier).updateProfile(session.user);
       if (mounted) context.go(Routes.main);
     }
   }
@@ -90,13 +86,13 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       }
 
       if (next is AsyncData) {
-        debugPrint(
-            '${Constants.tag} [RegisterScreen.build] isRegisterSuccessfully = ${next.value?.isRegisterSuccessfully}, isSignInSuccessfully = ${next.value?.isSignInSuccessfully}');
-        if (next.value?.isRegisterSuccessfully == true) {
-          context.pushReplacement(Routes.onboarding);
-        } else if (next.value?.isSignInSuccessfully == true) {
-          context.pushReplacement(Routes.main);
-        }
+        // debugPrint(
+        //     '${Constants.tag} [RegisterScreen.build] isRegisterSuccessfully = ${next.value?.isRegisterSuccessfully}, isSignInSuccessfully = ${next.value?.isSignInSuccessfully}');
+        // if (next.value?.isRegisterSuccessfully == true) {
+        //   context.pushReplacement(Routes.onboarding);
+        // } else if (next.value?.isSignInSuccessfully == true) {
+        //   context.pushReplacement(Routes.main);
+        // }
       }
     });
 
@@ -128,11 +124,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               const SizedBox(height: 32),
               PrimaryButton(
                 isEnable: _isEmailValid,
-                text: LocaleKeys.continueText.tr(),
+                text: "continue",
                 onPressed: () {
-                  ref
-                      .read(authenticationViewModelProvider.notifier)
-                      .signInWithMagicLink(_emailController.text);
+                  // ref.read(authenticationViewModelProvider.notifier).signInWithMagicLink(_emailController.text);
                   context.push(
                     Routes.otp,
                     extra: {
@@ -146,7 +140,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    LocaleKeys.alreadyHaveAccount.tr(),
+                    "alreadyHaveAccount",
                     style: AppTheme.body14,
                   ),
                   const SizedBox(width: 4),
@@ -155,7 +149,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       context.push(Routes.login);
                     },
                     child: Text(
-                      LocaleKeys.signIn.tr(),
+                      "signIn",
                       style: AppTheme.title14,
                     ),
                   ),

@@ -1,9 +1,5 @@
-import 'dart:convert';
-
-import 'package:bantuaku_customer/features/common/model/user_model.dart';
 import 'package:bantuaku_customer/utils/firebase_notification_service.dart';
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:bantuaku_customer/constants/constants.dart';
 import 'package:bantuaku_customer/features/authentication/model/auth_res.dart';

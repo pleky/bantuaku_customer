@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 
-import '../../../../generated/locale_keys.g.dart';
 import '../../../../theme/app_colors.dart';
 import '../../../../theme/app_theme.dart';
 import '../../model/trial.dart';
@@ -11,18 +10,18 @@ import '../../model/trial.dart';
 final List<Trial> _trials = [
   Trial(
     icon: HugeIcons.strokeRoundedLock,
-    title: LocaleKeys.trialToday,
-    description: LocaleKeys.trialTodayDescription,
+    title: "trialToday",
+    description: "trialTodayDescription",
   ),
   Trial(
     icon: HugeIcons.strokeRoundedNotification01,
-    title: LocaleKeys.trialDay5,
-    description: LocaleKeys.trialDay5Description,
+    title: "trialDay5",
+    description: "trialDay5Description",
   ),
   Trial(
     icon: HugeIcons.strokeRoundedStar,
-    title: LocaleKeys.trialDay7,
-    description: LocaleKeys.trialDay7Description,
+    title: "trialDay7",
+    description: "trialDay7Description",
   ),
 ];
 
@@ -34,9 +33,9 @@ class TrialTimeline extends StatelessWidget {
     return Column(
       children: _trials
           .mapIndexed((index, trial) => TrialItem(
-        trial: trial,
-        isLast: index == _trials.length - 1,
-      ))
+                trial: trial,
+                isLast: index == _trials.length - 1,
+              ))
           .toList(),
     );
   }
